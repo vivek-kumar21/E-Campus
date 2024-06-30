@@ -2,6 +2,23 @@
 
 Welcome to the E-Campus! This website is a comprehensive platform providing various resources for engineering students, including educational content, career guidance, internship opportunities, and coding practice. Below you'll find all the information you need about the project.
 
+# Screenshots
+
+**Homepage**
+![Home](./frontend/public/assets/home.png)
+
+**Branch Page**
+![Branch](./frontend/public/assets/branch.png)
+
+**Intership Page**
+![Internship](./frontend/public/assets/internship.png)
+
+**Coding Arena Page**
+![Coding Arena](./frontend/public/assets/coding-arena.png)
+
+**Blog Page**
+![Branch](./frontend/public/assets/blog.png)
+
 ## Table of Contents
 - [Features](#features)
 - [Technologies Used](#technologies-used)
