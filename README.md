@@ -11,12 +11,13 @@ Welcome to the E-Campus! This website is a comprehensive platform providing vari
 - [License](#license)
 
 ## Features
-- **YouTube Channel and Notes**: Access educational videos and notes tailored for engineering courses.
+- **User Authentication**: Strong authentication with options to change username, email, and password using OTP verification.
 - **Career Roadmaps**: Explore different career options with detailed roadmaps.
 - **Internship Portal**: Apply for internships directly through the portal.
 - **Coding Arena**: Practice coding with an interactive coding environment.
 - **Blog Section**: Read interview experiences and find resources for campus placements.
-- **User Authentication**: String authentication with options to change username, email, and password using OTP verification.
+- **AI ChatBot**: Talk with AI chatbot and ask it for information.
+- **YouTube Channel and Notes**: Access educational videos and notes tailored for engineering courses.
 
 ## Technologies Used
 - **Frontend**: 
