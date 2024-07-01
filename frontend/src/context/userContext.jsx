@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { URL } from "../url";
 
 export const UserContext = createContext({});
 
@@ -12,7 +13,7 @@ export function UserContextProvider({ children }) {
     // console.log("Token: ", accessToken);
     try {
       const res = await axios.get(
-        "http://localhost:8000/api/v1/users/current-user",
+        `${URL}/api/v1/users/current-user`,
         {
           withCredentials: true,
           headers: { Authorization: `Bearer ${accessToken}` },

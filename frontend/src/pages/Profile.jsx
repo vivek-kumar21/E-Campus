@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { URL } from "../url";
 
 const Profile = () => {
   const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ const Profile = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/users/current-user",
+          `${URL}/api/v1/users/current-user`,
           { withCredentials: true }
         );
 
