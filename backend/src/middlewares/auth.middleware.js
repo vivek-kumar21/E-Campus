@@ -9,7 +9,7 @@ export const verifyJWT = asyncHandler(async (req, _, next) => {
     // find out the current user using cookies or using header
     const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
 
-    console.log(token);
+    // console.log(token);
 
     // check if the retrieved token is valid or not
     if (!token) {

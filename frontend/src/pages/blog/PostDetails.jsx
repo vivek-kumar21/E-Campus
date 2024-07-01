@@ -26,7 +26,7 @@ const PostDetails = () => {
         withCredentials: true,
       });
 
-      console.log(res.data.statusCode);
+      // console.log(res.data.statusCode);
       if (res.data.statusCode === 200) {
         console.log("Post deleted successfully");
         navigate("/blogs");
