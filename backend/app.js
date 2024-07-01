@@ -11,17 +11,22 @@ app.use(
   })
 );
 
-app.use(express.json({limit: "16kb"}));
-app.use(express.urlencoded({extended: true, limit: "16kb"}));
+app.use(express.json({ limit: "16kb" }));
+app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 
 app.use(cookieParser());
+
+// Test route to check backend deployment
+app.get("/api/v1/test", (req, res) => {
+  res.status(200).json({ message: "Backend is working!" });
+});
 
 // routes import
 import userRouter from "./routes/user.routes.js";
 import internshipRouter from "./routes/internship.routes.js";
 import blogRouter from "./routes/blog.routes.js";
-import codeExecuteRouter from "./routes/codingArena.routes.js"
+import codeExecuteRouter from "./routes/codingArena.routes.js";
 
 // routes declaration
 app.use("/api/v1/users", userRouter);
