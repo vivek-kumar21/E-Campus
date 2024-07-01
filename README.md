@@ -5,19 +5,19 @@ Welcome to the E-Campus! This website is a comprehensive platform providing vari
 # Screenshots
 
 ![Home](./frontend/public/assets/home.png)
-**<center><p>Homepage</p></center>**
+**<p align="center">Homepage</p>**
 
 ![Branch](./frontend/public/assets/branch.png)
-**<center><p>Branch Page</p></center>**
+**<p align="center">Branch Page</p>**
 
 ![Internship](./frontend/public/assets/internship.png)
-**<center><p>Intership Page</p></center>**
+**<p align="center">Intership Page</p>**
 
 ![Coding Arena](./frontend/public/assets/coding-arena.png)
-**<center><p>Coding Arena Page</p></center>**
+**<p align="center">Coding Arena Page</p>**
 
 ![Branch](./frontend/public/assets/blog.png)
-**<center><p>Blog Page</p></center>**
+**-<p align="center">Blog Page</p>-**
 
 ## Table of Contents
 - [Features](#features)
