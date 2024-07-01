@@ -63,12 +63,6 @@ const Login = () => {
               />
             </div>
             <div className="mt-8 flex justify-between items-center">
-              <div>
-                <input type="checkbox" id="remember" />
-                <label className="ml-2 font-medium text-base" for="remember">
-                  Remember for 30 days
-                </label>
-              </div>
               <Link className="font-medium text-sm text-gray-500 hover:text-teal-300 duration-300">
                 Forgot password
               </Link>

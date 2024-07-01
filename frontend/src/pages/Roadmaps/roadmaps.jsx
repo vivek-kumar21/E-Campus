@@ -104,7 +104,9 @@ const Roadmaps = () => {
         <p className="text-center text-gray-500 mt-2 px-4 w-2/3">
           Explore Our Detailed Roadmaps for Every Professional Path.
         </p>
-        <div>
+        <div className="hidden md:flex">
+          {" "}
+          {/* Hide on mobile, show on desktop */}
           <p className="bg-orange-500 p-2 px-4 text-white absolute top-20 left-32">
             Web Development
             <FaLocationArrow className="text-orange-500 text-xl absolute rotate-90 left-[158px] top-[35px]" />

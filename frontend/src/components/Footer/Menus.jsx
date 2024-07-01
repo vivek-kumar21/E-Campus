@@ -6,10 +6,10 @@ export const INFORMATION = [
 ];
 
 export const RESOURCES = [
-  { name: "Roadmaps", link: "#" },
-  { name: "Internships", link: "#" },
-  { name: "Coding Arena", link: "#" },
-  { name: "Blog", link: "#" },
+  { name: "Roadmaps", link: "/roadmaps" },
+  { name: "Internships", link: "/internships" },
+  { name: "Coding Arena", link: "/coding-arena" },
+  { name: "Blog", link: "/blogs" },
 ];
 
 export const COMPANY = [

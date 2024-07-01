@@ -27,7 +27,9 @@ const Footer = () => {
         rounded-full bg-gray-700 mx-1.5 text-xl hover:text-gray-100 hover:bg-teal-500
         duration-300 "
           >
-            <Link>
+            <Link
+              to={"https://www.facebook.com/profile.php?id=100005617009247"}
+            >
               <FaFacebook />
             </Link>
           </span>
@@ -36,7 +38,7 @@ const Footer = () => {
         rounded-full bg-gray-700 mx-1.5 text-xl hover:text-gray-100 hover:bg-teal-500
         duration-300 "
           >
-            <Link>
+            <Link to={"https://github.com/vivek-kumar21"}>
               <FaGithub />
             </Link>
           </span>
@@ -45,7 +47,7 @@ const Footer = () => {
         rounded-full bg-gray-700 mx-1.5 text-xl hover:text-gray-100 hover:bg-teal-500
         duration-300 "
           >
-            <Link>
+            <Link to={"https://www.instagram.com/itsme_vivekkumar/"}>
               <FaInstagram />
             </Link>
           </span>
@@ -54,7 +56,9 @@ const Footer = () => {
         rounded-full bg-gray-700 mx-1.5 text-xl hover:text-gray-100 hover:bg-teal-500
         duration-300 "
           >
-            <Link>
+            <Link
+              to={"https://www.linkedin.com/in/vivek-kumar-mandal-638864221/"}
+            >
               <FaLinkedin />
             </Link>
           </span>

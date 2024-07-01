@@ -58,7 +58,7 @@ const Sheets = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-screen-lg mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-screen-lg px-6 md:px-0 mx-auto">
         {sheets.map((sheet, index) => (
           <div
             key={index}

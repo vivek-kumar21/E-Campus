@@ -7,7 +7,6 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState(null);
-  const [coverImage, setCoverImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -21,7 +20,6 @@ const Signup = () => {
     formData.append("email", email);
     formData.append("password", password);
     formData.append("avatar", avatar);
-    formData.append("coverImage", coverImage);
 
     try {
       const res = await axios.post(
@@ -36,7 +34,6 @@ const Signup = () => {
       setEmail(res.data.email);
       setPassword(res.data.password);
       setAvatar(res.data.avatar);
-      setCoverImage(res.data.coverImage);
 
       setIsLoading(false);
 
@@ -94,19 +91,6 @@ const Signup = () => {
             />
           </div>
 
-          <div>
-            <label className="text-lg font-medium">Cover Image</label>
-            <input
-              onChange={(e) => setCoverImage(e.target.files[0])}
-              type="file"
-              className="w-full border-2 border-gray-100 rounded-xl p-3 mt-1 bg-transparent"
-            />
-          </div>
-          <div className="mt-8 flex justify-between items-center">
-            <Link className="font-medium text-sm text-gray-500 hover:text-teal-300 duration-300">
-              Forgot password
-            </Link>
-          </div>
           <div className="mt-8 flex flex-col gap-y-4">
             <button
               onClick={handleSignup}

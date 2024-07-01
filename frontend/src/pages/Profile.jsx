@@ -1,16 +1,12 @@
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../context/userContext";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Profile = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [avatar, setAvatar] = useState("");
-
-  const { user } = useContext(UserContext);
-  console.log(user);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,34 +32,14 @@ const Profile = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex items-center justify-center gap-10 mt-8 mb-16">
+      <div className="flex flex-col items-center justify-center gap-10 mt-10 mb-10">
         <img
-          className="w-[180px] h-[180px] rounded-full"
+          className="w-[200px] h-[200px] rounded-full"
           src={avatar}
           alt="profile_picture"
         />
-        <div className="flex gap-8 mt-8">
-          <div className="flex flex-col gap-8">
-            <div className="bg-gray-200 p-4 pr-52 rounded-xl">
-              <h1 className="text-bold text-[18px]">Username</h1>
-              <p className="text-sm mt-2">{username}</p>
-            </div>
-            <div className="bg-gray-200 p-4 pr-52 rounded-xl">
-              <h1 className="text-bold text-[18px]">Email</h1>
-              <p className="text-sm mt-2">{email}</p>
-            </div>
-          </div>
-          <div className="flex flex-col gap-8">
-            <div className="bg-gray-200 p-4 pr-52 rounded-xl">
-              <h1 className="text-bold text-[18px]">Date of account </h1>
-              <p className="text-sm mt-2">22-05-2024</p>
-            </div>
-            <div className="bg-gray-200 p-4 pr-52 rounded-xl">
-              <h1 className="text-bold text-[18px]">Address</h1>
-              <p className="text-sm mt-2">Katras, Dhanbad</p>
-            </div>
-          </div>
-        </div>
+        <p className="text-3xl text-gray-900 font-bold -mt-6">{username}</p>
+        <p className="text-xl text-gray-800 -mt-10">{email}</p>
       </div>
       <Footer />
     </div>

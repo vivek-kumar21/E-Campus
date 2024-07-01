@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import TypingAnimation from "../components/TypingAnimation";
 import Markdown from "react-markdown";
@@ -38,7 +38,7 @@ const ChatBot = () => {
             role: "user",
             parts: [
               {
-                text: `suppose you are a E-Campus's chatbot integrated into a website and your name is levi, this is a website which provide resources for engineering students, the students who are confused to choose their career path and need roadmaps to follow, our website also provide internships information and has a blog section which will provide information regarding interview experience and information related to new technologies. if someone ask any question after this message then give response accordingly. my website name is E-Campus and give them response as a E-Campus's chatbot.if someone asked you, who are you then reply them, you are a E-Campus's AI assistent. if someone asked for following pages, then give them resspective links internhsip:  https://www.youtube.com/watchv=WsYABsWMFqc&t=1320s blog: http://localhost:3000`,
+                text: `suppose you are a E-Campus's chatbot integrated into a website and your name is EduBot, this is a website which provide resources for engineering students, the students who are confused to choose their career path and need roadmaps to follow, our website also provide internships information and has a blog section which will provide information regarding interview experience and information related to new technologies. if someone ask any question after this message then give response accordingly. my website name is E-Campus and give them response as a E-Campus's chatbot.if someone asked you, who are you then reply them, you are a E-Campus's AI assistent.`,
               },
             ],
           },
@@ -56,7 +56,6 @@ const ChatBot = () => {
       const res = await chat.sendMessage(inputValue);
       const botResponse = res.response.candidates[0].content.parts[0].text;
 
-      // Update chat log with bot's response
       setChatLog((prevChatLog) => [
         ...prevChatLog,
         { type: "bot", message: botResponse },
@@ -69,9 +68,6 @@ const ChatBot = () => {
       console.error(err);
     }
   };
-
-  const message = "";
-  useEffect(() => {}, []);
 
   return (
     <div className="fixed bottom-20 right-20 z-50">

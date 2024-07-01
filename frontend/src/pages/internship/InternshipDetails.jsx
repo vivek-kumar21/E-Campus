@@ -25,6 +25,12 @@ const InternshipDetails = () => {
     fetchData();
   }, [id]);
 
+  const handleButtonClick = (link) => {
+    if (link) {
+      window.open(link, "_blank");
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -82,7 +88,10 @@ const InternshipDetails = () => {
         <p className="text-gray-600 mt-2">{internship.openings}</p>
 
         <div className="flex justify-center mt-6">
-          <button className="bg-teal-500 rounded-md px-8 py-2 text-white hover:bg-teal-600">
+          <button
+            onClick={() => handleButtonClick(internship.applyLink)}
+            className="bg-teal-500 rounded-md px-8 py-2 text-white hover:bg-teal-600"
+          >
             Apply Now
           </button>
         </div>

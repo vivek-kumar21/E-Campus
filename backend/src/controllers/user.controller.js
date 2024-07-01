@@ -62,22 +62,12 @@ const registerUser = asyncHandler(async (req, res) => {
   const avatarLocalPath = req.files?.avatar[0]?.path;
   // console.log(req.files?.avatar[0]?.path);
 
-  let coverImageLocalPath;
-  if (
-    req.files &&
-    Array.isArray(req.files.coverImage) &&
-    req.files.coverImage.length > 0
-  ) {
-    coverImageLocalPath = req.files.coverImage[0].path;
-  }
-
   if (!avatarLocalPath) {
     throw new ApiError(400, "Avatar is required");
   }
 
   // 5. Upload them to cloudinary, avatar
   const avatar = await uploadOnCloudinary(avatarLocalPath);
-  const coverImage = await uploadOnCloudinary(coverImageLocalPath);
 
   if (!avatar) {
     throw new ApiError(400, "Avatar is required");
@@ -86,7 +76,6 @@ const registerUser = asyncHandler(async (req, res) => {
   // 6. Create user object - create entry in db
   const user = await User.create({
     avatar: avatar.url,
-    coverImage: coverImage?.url || "",
     email,
     password,
     username: username.toLowerCase(),
@@ -536,35 +525,6 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, user, "Avatar is updated successfully"));
 });
 
-/**************************************************UPDATE COVER IMAGE*************************************************/
-const updateUserCoverImage = asyncHandler(async (req, res) => {
-  const coverImageLocalPath = req.file?.path;
-
-  if (!coverImageLocalPath) {
-    throw new ApiError(400, "Cover Image file is missing");
-  }
-
-  const coverImage = await uploadOnCloudinary(coverImageLocalPath);
-
-  if (!coverImage.url) {
-    throw new ApiError(400, "Error while uploading cover image file");
-  }
-
-  const user = await User.findByIdAndUpdate(
-    req.user?._id,
-    {
-      $set: {
-        coverImage: coverImage.url,
-      },
-    },
-    { new: true }
-  ).select("-password");
-
-  return res
-    .status(200)
-    .json(new ApiResponse(200, user, "Cover Image is updated successfully"));
-});
-
 /**************************************************GET ACCOUNT DETAILS************************************************/
 const getAccountDetails = asyncHandler(async (req, res) => {
   const user = await User.findOne(req.user?._id).select("-password");
@@ -589,6 +549,5 @@ export {
   updateAccountDetails,
   refetchUser,
   updateUserAvatar,
-  updateUserCoverImage,
   getAccountDetails,
 };

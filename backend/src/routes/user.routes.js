@@ -15,7 +15,6 @@ import {
   resetPasswordCheck,
   updateAccountDetails,
   updateUserAvatar,
-  updateUserCoverImage,
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -27,10 +26,6 @@ router.route("/register").post(
     // this is a middleware which upload the avatar and cover image locally, in this case in /public
     {
       name: "avatar",
-      maxCount: 1,
-    },
-    {
-      name: "coverImage",
       maxCount: 1,
     },
   ]),
@@ -56,9 +51,6 @@ router.route("/update-account").put(verifyJWT,updateAccountDetails);
 router
   .route("/avatar")
   .patch(verifyJWT, upload.single("avatar"), updateUserAvatar);
-router
-  .route("/cover-image")
-  .patch(verifyJWT, upload.single("coverImage"), updateUserCoverImage);
 
 // password change routes
 router.route("/send-passwordOtp").post(passwordOtp);

@@ -12,34 +12,54 @@ const Testimonial = () => {
       image: image1,
       name: "DEV KARAN YADAV",
       review:
-        "I would recommend this to every college students who are confused to choose their career.",
+        "I would recommend this to every college student who is confused about choosing their career.",
+      link: "https://www.linkedin.com/in/the-dev-karan/",
     },
     {
       image: image2,
       name: "TANMAY TEWARY",
       review:
-        "Feel free to customize the text to better fit your brand voice and target audience.",
+        "Excellent resource! Comprehensive notes, coding sheets, and valuable internship info. Highly recommend!",
+      link: "https://www.linkedin.com/in/tanmay-kumar-tewary-b9ba2823b/",
     },
     {
       image: image1,
       name: "SATYAM SINGH",
       review:
-        "Feel free to customize the text to better fit your brand voice and target audience.",
+        "Lifesaver for engineering students! Top-notch resources and insightful blog posts. A must-have!",
+      link: "https://www.linkedin.com/in/satyam-kumar-singh-02897b24a/",
     },
     {
       image: image2,
       name: "ANKIT KUMAR",
       review:
-        "Feel free to customize the text to better fit your brand voice and target audience.",
+        "Everything in one place! Detailed notes, coding sheets, and internship info. Amazing resource",
+      link: "https://www.linkedin.com/in/ankit-kumar-07068021b/",
     },
   ];
 
   const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
+  const handleButtonClick = (link) => {
+    if (link) {
+      window.open(link, "_blank");
+    }
   };
 
   return (
@@ -51,38 +71,54 @@ const Testimonial = () => {
         viewport={{ once: false, amount: 0.1 }}
       >
         <h5 className="text-heading_color text-4xl uppercase">Testimonials</h5>
-        <h1 className="text-2xl w-96 mx-auto leading-normal font-bold mb-12">
+        <h1 className="text-2xl mx-4 md:mx-auto leading-normal font-bold">
           Read what others have to say
         </h1>
       </motion.div>
-      <div className="max-w-5xl mx-auto gap-8 group">
+      <div className="max-w-5xl mx-auto gap-8 -mt-6 group">
         <motion.div
           variants={fadeIn("up", 0.1)}
           initial="hidden"
           whileInView={"show"}
           viewport={{ once: false, amount: 0.7 }}
-          className="mt-20"
+          className="mt-10 md:mt-20 relative"
         >
           <Slider {...settings}>
             {data.map((d, i) => (
               <div key={i}>
-                <div className="bg-teal-800/10 duration-500 flex flex-col items-center group-hover:blur-sm hover:!blur-none group-hover:scale-[0.85] hover:!scale-100 p-12 rounded-xl mix-blend-luminosity">
+                <div className="bg-teal-800/10 duration-500 flex flex-col items-center p-6 md:p-12 rounded-xl mix-blend-luminosity">
                   <img
                     src={d.image}
                     alt=""
-                    className="h-20 max-auto rounded-full mb-2"
+                    className="h-24 md:h-32 max-auto rounded-full mb-4"
                   />
-                  <h4 className="uppercase text-xl font-bold">{d.name}</h4>
-                  <p className="text-sm leading-7 my-3 font-light opacity-50">
+                  <h4 className="uppercase text-lg md:text-xl font-bold text-center">
+                    {d.name}
+                  </h4>
+                  <p className="text-sm md:text-base leading-6 my-3 font-light opacity-50 text-center">
                     {d.review}
                   </p>
-                  <button className="bg-teal-500 text-white py-2.5 px-8 rounded-full">
+                  <button
+                    onClick={() => handleButtonClick(d.link)}
+                    className="bg-teal-500 text-white py-2 px-6 md:py-2.5 md:px-8 rounded-full"
+                  >
                     Get in Touch
                   </button>
                 </div>
               </div>
             ))}
           </Slider>
+          <style>{`
+            .slick-prev,
+            .slick-next {
+              color: #333;
+              z-index: 10;
+            }
+            .slick-prev:before,
+            .slick-next:before {
+              color: #333;
+            }
+          `}</style>
         </motion.div>
       </div>
     </div>
