@@ -1,1 +1,1 @@
-export const URL = "http://localhost:8000";
+export const URL = "e-campusbackend-fq11d8i5e-vivek-kumar-mandals-projects.vercel.app";
