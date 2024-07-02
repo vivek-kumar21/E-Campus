@@ -87,7 +87,7 @@ const branch = [
 
 const Main = () => {
   return (
-    <div className="bg-gray-100 p-4">
+    <div className="bg-gray-100 p-20">
       <div className="flex flex-col items-center justify-center mt-24 mb-20 text-center">
         <p className="text-5xl text-slate-800 font-extrabold">
           Explore{" "}

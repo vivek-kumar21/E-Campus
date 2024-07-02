@@ -26,10 +26,10 @@ const NavLinks = ({ isOpen }) => {
   ];
 
   return (
-    <div className={isOpen ? "mt-20 md:flex" : "md:flex md:gap-x-6"}>
+    <div className={isOpen ? "mt-20 md:flex" : "md:flex md:gap-x-10 md:-ml-10"}>
       {links.map((link) => (
         <div key={link.name}>
-          <div className="px-3 text-left group">
+          <div className="text-left group">
             <h1
               onClick={() =>
                 heading !== link.name ? setHeading(link.name) : setHeading("")

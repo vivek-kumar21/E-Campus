@@ -107,7 +107,7 @@ const Hero = () => {
   });
 
   return (
-    <div className="bg-[#fafbfc] pb-12">
+    <div className="bg-[#fafbfc] mt-20 pb-12">
       <div className="flex flex-col items-center justify-center min-h-[60vh] py-16 px-6">
         <h1 className="xl:text-5xl lg:text-5xl sm:text-3xl text-2xl xl:leading-normal lg:leading-normal font-bold text-center">
           Find your{" "}
@@ -121,11 +121,11 @@ const Hero = () => {
             ></span>
           </span>
         </h1>
-        <p className="text-xl lg:w-1/2 text-center leading-10 my-8">
+        <p className="text-xl lg:w-1/2 text-center -mt-1 leading-10 my-0">
           Discover your path to professional growth.
           <br /> Start your journey with us.
         </p>
-        <div className="flex items-center border-2 border-solid border-teal-500 rounded-full h-16 lg:w-2/5 w-full py-2 relative mt-4">
+        <div className="flex items-center border-2 border-solid border-teal-500 rounded-full h-16 lg:w-2/5 w-full py-2 relative mt-10">
           <input
             onChange={(e) => setSearch(e.target.value)}
             className="bg-transparent h-full w-full border-none outline-none absolute px-20 xl:text-2xl text-base"

@@ -11,13 +11,9 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
-  // console.log(user.data.avatar);
 
   const menuRef = useRef();
   const imgRef = useRef();
-
-  // const username = user.data.username;
-  // console.log(username);
 
   window.addEventListener("click", (e) => {
     if (e.target !== menuRef.current && e.target !== imgRef.current) {
@@ -45,30 +41,32 @@ const Navbar = () => {
   };
 
   return (
-    <nav>
-      <div className="pt-2 flex items-center font-medium justify-around w-full bg-black bg-opacity-60 backdrop-filter backdrop-blur-lg">
-        <div className="z-50 p-2 md:w-auto w-full flex justify-between items-center md:mt-0 mt-4">
-          <Link to="/" className="md:block flex items-center">
-            <img src={img} alt="e-campus logo" className="w-52 h-auto" />
-          </Link>
+    <nav className="fixed md:flex top-0 left-0 w-full z-10">
+      <div className="md:pt-2 pt-4 md:pb-0 pb-4 flex items-center font-medium justify-between md:px-9 px-0 w-full bg-black bg-opacity-60 backdrop-filter backdrop-blur-lg">
+        <div className="flex items-center z-50">
           <div
             onClick={() => setOpen(!open)}
-            className={`-mt-2 md:-mt-0
-      ${
-        open
-          ? "text-3xl md:hidden flex cursor-pointer"
-          : "text-3xl md:hidden flex text-white cursor-pointer"
-      }`}
+            className={`text-3xl ml-4 cursor-pointer ${
+              open ? "" : "text-white"
+            } md:hidden`}
           >
-            <div className="pl-6 pr-2">{!open ? <IoMenu /> : <IoClose />}</div>
+            {!open ? <IoMenu /> : <IoClose />}
           </div>
+          <Link to="/" className="ml-0 md:ml-0">
+            <img
+              src={img}
+              alt="e-campus logo"
+              className="md:w-52 w-36 h-auto md:ml-4 ml-2"
+            />
+          </Link>
         </div>
 
         <ul className="md:flex hidden items-center gap-6 font-mono">
           <NavLinks />
         </ul>
+
         {user ? (
-          <div className="relative">
+          <div className="relative md:pr-0 pr-2">
             <img
               ref={imgRef}
               onClick={() => setIsOpen(!isOpen)}
@@ -80,7 +78,7 @@ const Navbar = () => {
             {isOpen && (
               <div
                 ref={menuRef}
-                className="bg-white rounded-md p-4 w-52 z-50 shadow-lg absolute top-[43px] right-[1px]"
+                className="bg-white rounded-md p-4 w-52 shadow-lg absolute top-[43px] right-0"
               >
                 <ul>
                   <li

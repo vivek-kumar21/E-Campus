@@ -33,7 +33,7 @@ const Profile = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col items-center justify-center gap-10 mt-10 mb-10">
+      <div className="flex flex-col items-center justify-center gap-10 mt-24 mb-10">
         <img
           className="w-[200px] h-[200px] rounded-full"
           src={avatar}

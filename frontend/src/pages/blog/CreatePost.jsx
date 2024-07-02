@@ -96,7 +96,7 @@ const CreatePost = () => {
   return (
     <div>
       <Navbar />
-      <div className="px-6 md:px-[200px] mt-8">
+      <div className="px-6 md:px-[200px] mt-20">
         <h1 className="font-bold md:text-2xl text-xl ">Create a post</h1>
         <form className="w-full flex flex-col space-y-4 md:space-y-8 mt-4">
           <input

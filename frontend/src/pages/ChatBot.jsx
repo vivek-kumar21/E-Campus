@@ -70,13 +70,13 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-20 right-20 z-50">
-      <div className="container mx-auto max-w-md">
-        <div className="bg-gray-800 rounded-l-lg rounded-tr-lg overflow-hidden shadow-lg">
+    <div className="fixed bottom-32 right-14 z-50 md:bottom-20 md:right-20">
+      <div className="container mx-auto w-80 md:max-w-md">
+        <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
           <div className="px-4 py-2 bg-gray-900 flex items-center justify-between">
             <h1 className="text-white font-semibold">ChatBot</h1>
           </div>
-          <div className="p-4 w-96 h-96 overflow-y-auto">
+          <div className="p-4 w-full h-80 md:h-96 overflow-y-auto">
             {chatLog.map((data, i) => (
               <div
                 key={i}
@@ -89,7 +89,7 @@ const ChatBot = () => {
                     data.type === "user"
                       ? "bg-teal-600 rounded-l-lg rounded-br-lg"
                       : "bg-gray-700 rounded-r-lg rounded-bl-lg"
-                  } p-2 text-white mb-4 max-w-xs`}
+                  } p-2 text-white mb-4 max-w-xs md:max-w-md`}
                 >
                   <Markdown>{data.message}</Markdown>
                 </div>
@@ -97,7 +97,7 @@ const ChatBot = () => {
             ))}
             {isLoading && (
               <div key={chatLog.length} className="flex justify-start">
-                <div className="bg-gray-700 rounded-lg p-2 text-white max-w-xs">
+                <div className="bg-gray-700 rounded-lg p-2 text-white max-w-xs md:max-w-md">
                   <TypingAnimation />
                 </div>
               </div>

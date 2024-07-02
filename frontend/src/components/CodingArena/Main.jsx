@@ -59,7 +59,7 @@ const Main = () => {
   };
 
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-200 mt-16">
       <div className="flex items-center justify-center">
         <span className="text-gray-600 mt-2 relative">
           <span className="text-4xl text-extrabold relative">Coding Arena</span>

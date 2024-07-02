@@ -14,7 +14,7 @@ const Main = () => {
   const location = useLocation();
 
   return (
-    <div className="flex">
+    <div className="flex mt-16">
       <div className={`w-72 h-screen bg-gray-200 relative`}>
         <div className="flex flex-col gap-x-4 p-4">
           <ul className="pt-4">

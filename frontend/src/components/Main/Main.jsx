@@ -14,7 +14,7 @@ const Main = () => {
       initial="hidden"
       whileInView={"show"}
       viewport={{ once: false, amount: 0.7 }}
-      className="text-white font-bold py-32 text-center space-y-5"
+      className="text-white font-bold py-32 mt-10 text-center space-y-5"
     >
       <div className="text-3xl sm:text-5xl md:text-6xl lg:text-5xl space-y-5 font-extrabold text-zinc-300">
         <h1>One Stop Destination</h1>

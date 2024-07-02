@@ -85,7 +85,7 @@ const BlogHome = () => {
     <>
       <Navbar />
 
-      <div className="px-8 md:px-[200px] min-h-[80vh]">
+      <div className="px-8 mt-20 md:px-[200px] min-h-[80vh]">
         <div className="flex items-center justify-center my-6">
           <div className="relative w-full sm:w-auto">
             <input

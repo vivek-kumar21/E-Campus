@@ -88,7 +88,7 @@ const Roadmaps = () => {
     <div>
       <Navbar />
 
-      <div className="flex flex-col items-center relative justify-center bg-gray-100 py-48 px-20">
+      <div className="mt-16 flex flex-col items-center relative justify-center bg-gray-100 py-48 px-20">
         <p className="text-4xl text-slate-800 font-bold">
           Navigate Your Career Journey with{" "}
           <span className="text-teal-500 relative">

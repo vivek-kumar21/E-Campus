@@ -50,7 +50,7 @@ const Sheets = () => {
     <div>
       <Navbar />
 
-      <div className="flex flex-col items-center justify-center mt-28 mb-20">
+      <div className="flex flex-col items-center justify-center md:mt-48 mt-28 mb-20">
         <p className="text-4xl text-slate-800 font-bold">Select DSA Sheet</p>
         <p className="text-center text-gray-500 mt-2 px-4 w-2/5">
           Your quick reference guide for choosing the best Data Structures and

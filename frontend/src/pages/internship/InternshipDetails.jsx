@@ -35,7 +35,7 @@ const InternshipDetails = () => {
     <>
       <Navbar />
 
-      <div className="max-w-screen-2xl mt-8 container mx-auto xl:px-24 px-4">
+      <div className="max-w-screen-2xl mt-20 container mx-auto xl:px-24 px-4">
         <div className="bg-gray-100 w-30 h-52 rounded-md flex items-center justify-center">
           <p className="text-4xl text-teal-500">{internship.companyName}</p>
         </div>
