@@ -73,6 +73,10 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Avatar is required");
   }
 
+  if (!avatar.url.startsWith("https://")) {
+    avatar.url = avatar.url.replace("http://", "https://");
+  }
+
   // 6. Create user object - create entry in db
   const user = await User.create({
     avatar: avatar.url,
@@ -376,7 +380,8 @@ const forgotPassword = asyncHandler(async (req, res) => {
       expiresIn: "5m",
     });
 
-    const link = `http://localhost:8000/api/v1/users/reset-password/${oldUser._id}/${token}`;
+    // const link = `http://localhost:8000/api/v1/users/reset-password/${oldUser._id}/${token}`;
+    const link = `https://e-campus-backend.vercel.app/api/v1/users/reset-password/${oldUser._id}/${token}`;
     var transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {

@@ -4,7 +4,9 @@ import "slick-carousel/slick/slick-theme.css";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../varients";
 import image1 from "../../assets/dev.png";
-import image2 from "../../assets/vivek.jpeg";
+import image2 from "../../assets/tanmay.png";
+import image3 from "../../assets/ankit.png";
+import image4 from "../../assets/satyam.png";
 
 const Testimonial = () => {
   const data = [
@@ -23,14 +25,14 @@ const Testimonial = () => {
       link: "https://www.linkedin.com/in/tanmay-kumar-tewary-b9ba2823b/",
     },
     {
-      image: image1,
+      image: image4,
       name: "SATYAM SINGH",
       review:
         "Lifesaver for engineering students! Top-notch resources and insightful blog posts. A must-have!",
       link: "https://www.linkedin.com/in/satyam-kumar-singh-02897b24a/",
     },
     {
-      image: image2,
+      image: image3,
       name: "ANKIT KUMAR",
       review:
         "Everything in one place! Detailed notes, coding sheets, and internship info. Amazing resource",

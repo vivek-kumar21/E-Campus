@@ -6,6 +6,7 @@ const app = express();
 
 app.use(
   cors({
+    // origin: "http://localhost:3000",
     origin: "https://e-campus.vercel.app",
     credentials: true,
   })

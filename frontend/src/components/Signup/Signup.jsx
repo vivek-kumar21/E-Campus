@@ -9,6 +9,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  // console.log(avatar);
 
   const navigate = useNavigate();
 
