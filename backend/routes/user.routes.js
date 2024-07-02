@@ -21,16 +21,7 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.route("/register").post(
-  upload.fields([
-    // this is a middleware which upload the avatar and cover image locally, in this case in /public
-    {
-      name: "avatar",
-      maxCount: 1,
-    },
-  ]),
-  registerUser
-);
+router.post("/register", upload.single("avatar"), registerUser);
 
 router.route("/login").post(loginUser);
 router.route("/send-otp").post(otp);

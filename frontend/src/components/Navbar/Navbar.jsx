@@ -47,21 +47,23 @@ const Navbar = () => {
   return (
     <nav>
       <div className="pt-2 flex items-center font-medium justify-around w-full bg-black bg-opacity-60 backdrop-filter backdrop-blur-lg">
-        <div className="z-50 p-2 md:w-auto w-full flex justify-between md:mt-0 mt-4">
-          <Link to="/">
+        <div className="z-50 p-2 md:w-auto w-full flex justify-between items-center md:mt-0 mt-4">
+          <Link to="/" className="md:block flex items-center">
             <img src={img} alt="e-campus logo" className="w-52 h-auto" />
           </Link>
           <div
             onClick={() => setOpen(!open)}
-            className={
-              open
-                ? "text-3xl md:hidden cursor-pointer"
-                : "text-3xl md:hidden text-white cursor-pointer"
-            }
+            className={`-mt-2 md:-mt-0
+      ${
+        open
+          ? "text-3xl md:hidden flex cursor-pointer"
+          : "text-3xl md:hidden flex text-white cursor-pointer"
+      }`}
           >
-            {!open ? <IoMenu /> : <IoClose />}
+            <div className="pl-6 pr-2">{!open ? <IoMenu /> : <IoClose />}</div>
           </div>
         </div>
+
         <ul className="md:flex hidden items-center gap-6 font-mono">
           <NavLinks />
         </ul>
@@ -147,30 +149,12 @@ const Navbar = () => {
         {/* Mobile nav */}
         <ul
           className={`
-          md:hidden bg-white absolute w-full h-full bottom-0 py-24 pl-4
+          md:hidden fixed w-screen h-full right-0 top-0 left-0 py-24 pl-4
           duration-500 ${open ? "left-0" : "left-[-100%]"} 
         `}
         >
-          <NavLinks isOpen={open} />
-          <div className="py-5">
-            <div>
-              <div>
-                <Link
-                  className="bg-teal-500 text-white px-6 py-2 rounded-full hover:bg-blue-500 duration-300"
-                  to="/signup"
-                >
-                  Signup
-                </Link>
-              </div>
-              <div className="mt-2">
-                <Link
-                  className="bg-teal-500 text-white px-6 py-2 rounded-full hover:bg-blue-500 duration-300"
-                  to="/login"
-                >
-                  Login
-                </Link>
-              </div>
-            </div>
+          <div className="text-black bg-white absolute top-0 left-0 h-screen pl-10 w-56">
+            <NavLinks isOpen={open} />
           </div>
         </ul>
       </div>

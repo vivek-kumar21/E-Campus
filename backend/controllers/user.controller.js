@@ -8,6 +8,7 @@ import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
 import otpGenerator from "otp-generator";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+
 import { mailSender } from "../utils/mailSender.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
@@ -58,28 +59,17 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(409, "User with email or username already exists");
   }
 
-  // 4. Check for images, check for avatar
-  const avatarLocalPath = req.files?.avatar[0]?.path;
-  // console.log(req.files?.avatar[0]?.path);
-
-  if (!avatarLocalPath) {
-    throw new ApiError(400, "Avatar is required");
-  }
-
-  // 5. Upload them to cloudinary, avatar
-  const avatar = await uploadOnCloudinary(avatarLocalPath);
-
-  if (!avatar) {
-    throw new ApiError(400, "Avatar is required");
-  }
-
-  if (!avatar.url.startsWith("https://")) {
-    avatar.url = avatar.url.replace("http://", "https://");
+  let avatar;
+  if(req.file){
+    const result = await uploadOnCloudinary(req.file.buffer);
+    if(result){
+      avatar = result.secure_url;
+    }
   }
 
   // 6. Create user object - create entry in db
   const user = await User.create({
-    avatar: avatar.url,
+    avatar,
     email,
     password,
     username: username.toLowerCase(),

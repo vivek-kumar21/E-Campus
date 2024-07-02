@@ -26,7 +26,7 @@ const NavLinks = ({ isOpen }) => {
   ];
 
   return (
-    <>
+    <div className={isOpen ? "mt-20 md:flex" : "md:flex md:gap-x-6"}>
       {links.map((link) => (
         <div key={link.name}>
           <div className="px-3 text-left group">
@@ -56,68 +56,22 @@ const NavLinks = ({ isOpen }) => {
                   <p className="hover:text-cyan-300 duration-300">
                     {link.name}
                   </p>
-                  {/* <span className="text-sm md:hidden inline">
-                    {heading === link.name ? (
-                      <IoChevronUp />
-                    ) : (
-                      <IoChevronDown />
-                    )}
-                  </span>
-                  <span className="text-sm md:mt-1 md:ml-2 md:block hidden group-hover:rotate-180 group-hover:-mt-2">
-                    <IoChevronDown />
-                  </span> */}
                 </>
               )}
             </h1>
-            {/* {link.submenu && (
-              <div>
-                <div className="absolute top-13 hidden group-hover:md:block hover:md:block shadow-md">
-                  <div className="py-3">
-                    <div className="w-4 h-4 left-3 absolute mt-1 bg-white rotate-45"></div>
-                  </div>
-                  <Link to="#">
-                    <div className="bg-white p-3.5 rounded-md">
-                      {link.sublinks.map((sublink, i) => (
-                        <Link to={sublink.link} key={i}>
-                          <li
-                            key={sublink.name}
-                            className="duration-300 p-2 text-xs my-2.5 rounded hover:bg-teal-300"
-                          >
-                            {sublink.name}
-                          </li>
-                        </Link>
-                      ))}
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            )} */}
           </div>
 
           {/* Mobile Menus */}
           {link.submenu && (
             <div
-              className={`
-              ${heading === link.name ? "md:hidden" : "hidden"}
-            `}
-            >
-              {/* sublinks */}
-              {/* {link.sublinks.map((sublink) => (
-                <div key={sublink.name}>
-                  <div>
-                    <li className="text-sm text-gray-600 my-2.5 py-4 pl-7 font-semibold md:pr-0 pr-5">
-                      <Link to={sublink.link} className="hover:text-primary">
-                        {sublink.name}
-                      </Link>
-                    </li>
-                  </div>
-                </div>
-              ))} */}
-            </div>
+              className={`bg-white ${
+                heading === link.name ? "md:hidden" : "hidden"
+              }`}
+            ></div>
           )}
         </div>
       ))}
-    </>
+    </div>
   );
 };
 
