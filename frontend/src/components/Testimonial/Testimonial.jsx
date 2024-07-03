@@ -120,6 +120,12 @@ const Testimonial = () => {
             .slick-next:before {
               color: #333;
             }
+            @media (max-width: 768px) {
+              .slick-prev,
+              .slick-next {
+                display: none !important;
+              }
+            }
           `}</style>
         </motion.div>
       </div>

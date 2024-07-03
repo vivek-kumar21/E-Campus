@@ -157,12 +157,12 @@ const PostDetails = () => {
             ))}
           </div>
           {/* write a comment */}
-          <div className="w-full flex flex-col mt-4 md:flex-row">
+          <div className="w-full flex md:mt-2 mt-0 flex-col md:flex-row">
             <input
               onChange={(e) => setComment(e.target.value)}
               type="text"
               placeholder="Write a comment"
-              className="md:w-[80%] border rounded-md py-2 px-4 mt-4 mr-4 md:mt-0"
+              className="md:w-[80%] w-full border rounded-md py-2 px-4 mt-4 mr-4 md:mt-0"
             />
             <button
               onClick={postComment}

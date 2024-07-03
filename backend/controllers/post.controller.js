@@ -9,15 +9,14 @@ const createPost = asyncHandler(async (req, res) => {
     const { title, description, username, profileImage, userId, categories } =
       req.body;
 
-    const photoLocalPath = req.file?.path;
-    // console.log(photoLocalPath);
-
-    if (!photoLocalPath) {
-      throw new ApiError(400, "Photo is required");
+    let photo;
+    if (req.file) {
+      const result = await uploadOnCloudinary(req.file.buffer);
+      if (result) {
+        photo = result.secure_url;
+      }
     }
-
-    const photo = await uploadOnCloudinary(photoLocalPath);
-
+    
     if (!photo) {
       throw new ApiError(400, "Photo is required");
     }
@@ -29,7 +28,7 @@ const createPost = asyncHandler(async (req, res) => {
       profileImage,
       userId,
       categories,
-      photo: photo.url,
+      photo,
     });
     const savedPost = await newPost.save();
 

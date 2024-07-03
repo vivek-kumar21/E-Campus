@@ -13,7 +13,7 @@ const ChatButton = () => {
 
   return (
     <>
-      <div className="fixed md:bottom-6 md:right-6 bottom-16 right-11 z-50">
+      <div className="fixed md:bottom-6 md:right-6 bottom-3 right-3 z-50">
         <button
           className="bg-teal-500 text-white rounded-full p-4 shadow-md hover:bg-teal-600 focus:outline-none"
           onClick={toggleChat}

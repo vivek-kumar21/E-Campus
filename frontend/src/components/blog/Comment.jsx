@@ -31,7 +31,7 @@ const Comment = ({ c }) => {
         <h3 className="font-bold text-gray-600">@{c.author}</h3>
         <div className="flex justify-center items-center space-x-4">
           <p>{new Date(c.updatedAt).toString().slice(0, 15)}</p>
-          <p>{new Date(c.updatedAt).toString().slice(16, 21)}</p>
+          <p className="md:flex hidden">{new Date(c.updatedAt).toString().slice(16, 21)}</p>
           {user?.data._id === c?.userId ? (
             <div className="flex items-center justify-center space-x-2">
               <p
