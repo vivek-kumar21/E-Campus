@@ -485,7 +485,7 @@ const BranchDetails = () => {
       <Navbar />
 
       {branch ? (
-        <div className="bg-gray-100 p-4 min-h-screen">
+        <div className="bg-gray-100 mt-16 p-4 min-h-screen">
           <div className="flex flex-col items-center justify-center mt-24 mb-12 text-center">
             <h1 className="text-5xl text-slate-800 font-extrabold">
               {branch.title}

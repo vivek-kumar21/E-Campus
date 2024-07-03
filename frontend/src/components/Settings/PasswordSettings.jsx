@@ -42,28 +42,28 @@ const PasswordSettings = () => {
   return (
     <div>
       <p className="text-xl text-gray-500">Password</p>
-      <div className="flex flex-col items-center justify-center mt-4 gap-x-6">
-        <div>
+      <div className="flex flex-col items-center justify-center mt-4 space-y-4">
+        <div className="w-full max-w-md">
           <p className="text-md">Old password:</p>
           <input
             type="password"
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
-            className="p-2 border-2 pr-60"
+            className="w-full p-2 border-2"
           />
         </div>
 
-        <div className="mt-2">
+        <div className="w-full max-w-md">
           <p className="text-md">New password:</p>
           <input
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            className="p-2 border-2 pr-60"
+            className="w-full p-2 border-2"
           />
         </div>
 
-        <div className="mt-2">
+        <div className="w-full max-w-md">
           <p className="text-md">Re-type password:</p>
           <input
             type="password"
@@ -76,17 +76,15 @@ const PasswordSettings = () => {
                 setErrorMessage("");
               }
             }}
-            className="p-2 border-2 pr-60"
+            className="w-full p-2 border-2"
           />
         </div>
 
-        {errorMessage && (
-          <div className="mt-2 text-red-500">{errorMessage}</div>
-        )}
+        {errorMessage && <div className="text-red-500">{errorMessage}</div>}
 
         <button
           onClick={handleUpdate}
-          className="flex items-center justify-center gap-x-1 w-24 h-10 bg-teal-500 rounded-md mt-6 text-white hover:bg-teal-400"
+          className="w-full max-w-md flex items-center justify-center gap-x-1 p-2 bg-teal-500 rounded-md text-white hover:bg-teal-400"
         >
           {loading ? <Loader size={"w-6 h-6"} /> : <span>Update</span>}
         </button>

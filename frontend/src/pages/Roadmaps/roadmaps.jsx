@@ -1,3 +1,6 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { FaLocationArrow } from "react-icons/fa6";
 import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import img1 from "../../assets/roadmaps/frontend.svg";
@@ -11,8 +14,6 @@ import img8 from "../../assets/roadmaps/python.png";
 import img9 from "../../assets/roadmaps/cloud.webp";
 import img10 from "../../assets/roadmaps/machine.png";
 import img11 from "../../assets/roadmaps/spring-boot.png";
-import { Link } from "react-router-dom";
-import { FaLocationArrow } from "react-icons/fa6";
 
 const roadmaps = [
   {
@@ -88,8 +89,8 @@ const Roadmaps = () => {
     <div>
       <Navbar />
 
-      <div className="mt-16 flex flex-col items-center relative justify-center bg-gray-100 py-48 px-20">
-        <p className="text-4xl text-slate-800 font-bold">
+      <div className="md:mt-16 mt-16 flex flex-col items-center relative justify-center bg-gray-100 py-12 md:py-48 px-4 md:px-20">
+        <p className="text-3xl md:text-4xl text-center text-slate-800 font-bold mb-2 md:mb-4">
           Navigate Your Career Journey with{" "}
           <span className="text-teal-500 relative">
             <span className="relative">Confidence</span>
@@ -101,11 +102,31 @@ const Roadmaps = () => {
             ></span>
           </span>
         </p>
-        <p className="text-center text-gray-500 mt-2 px-4 w-2/3">
+        <p className="text-center text-gray-500 mt-2 px-4 md:w-2/3 w-full">
           Explore Our Detailed Roadmaps for Every Professional Path.
         </p>
+        <div className="flex flex-wrap justify-center mt-6 md:hidden">
+          {/* Show on mobile, hide on desktop */}
+          <div className="bg-orange-500 p-2 px-4 text-white rounded-md shadow-md m-2 relative">
+            <p className="font-semibold">Web Development</p>
+          </div>
+          <div className="bg-cyan-500 p-2 px-4 text-white rounded-md shadow-md m-2 relative">
+            <p className="font-semibold">App Development</p>
+          </div>
+          <div className="bg-indigo-500 p-2 px-4 text-white rounded-md shadow-md m-2 relative">
+            <p className="font-semibold">Data Science</p>
+          </div>
+          <div className="bg-fuchsia-500 p-2 px-4 text-white rounded-md shadow-md m-2 relative">
+            <p className="font-semibold">UI/UX Design</p>
+          </div>
+          <div className="bg-rose-500 p-2 px-4 text-white rounded-md shadow-md m-2 relative">
+            <p className="font-semibold">Artificial Intelligence</p>
+          </div>
+          <div className="bg-emerald-500 p-2 px-4 text-white rounded-md shadow-md m-2 relative">
+            <p className="font-semibold">Machine Learning</p>
+          </div>
+        </div>
         <div className="hidden md:flex">
-          {" "}
           {/* Hide on mobile, show on desktop */}
           <p className="bg-orange-500 p-2 px-4 text-white absolute top-20 left-32">
             Web Development

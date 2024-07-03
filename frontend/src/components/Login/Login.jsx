@@ -8,6 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -26,12 +27,13 @@ const Login = () => {
 
       localStorage.setItem("accessToken", res.data.data.accessToken);
 
+      console.log(res.data.data.user);
       setUser(res.data);
       setIsLoading(false);
       navigate("/");
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      setError("Invalid email or password.");
     }
   };
 
@@ -63,6 +65,9 @@ const Login = () => {
                 placeholder="Enter your password"
               />
             </div>
+
+            {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
+
             <div className="mt-8 flex justify-between items-center">
               <Link className="font-medium text-sm text-gray-500 hover:text-teal-300 duration-300">
                 Forgot password

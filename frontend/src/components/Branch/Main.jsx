@@ -87,9 +87,9 @@ const branch = [
 
 const Main = () => {
   return (
-    <div className="bg-gray-100 p-20">
-      <div className="flex flex-col items-center justify-center mt-24 mb-20 text-center">
-        <p className="text-5xl text-slate-800 font-extrabold">
+    <div className="bg-gray-100 p-8 md:p-20">
+      <div className="flex flex-col items-center justify-center py-6 mt-12 mb-12 text-center">
+        <p className="md:text-5xl text-4xl text-slate-800 font-extrabold">
           Explore{" "}
           <span className="text-teal-500 relative">
             <span className="relative">Engineering</span>
@@ -102,18 +102,18 @@ const Main = () => {
           </span>{" "}
           Resources
         </p>
-        <p className="text-xl text-gray-700 mt-4 px-4 w-full max-w-3xl">
+        <p className="md:text-xl text-md text-gray-700 mt-4 px-4 w-full max-w-3xl">
           Empower your engineering journey with our comprehensive resource
           library, tailored for every branch. Enhance your skills, deepen your
           knowledge, and grow your career with our curated content.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-screen-lg mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-screen-lg mx-auto">
         {branch.map((branchItem, i) => (
           <div
             key={i}
-            className="flex flex-col justify-between p-6 bg-white rounded-2xl shadow-md hover:shadow-xl transform hover:-translate-y-2 duration-300"
+            className="flex flex-col justify-between p-4 md:p-6 bg-white rounded-2xl shadow-md hover:shadow-xl transform hover:-translate-y-2 duration-300"
             style={{ borderTop: `6px solid ${branchItem.borderColor}` }}
           >
             <div>
@@ -136,7 +136,11 @@ const Main = () => {
                     See Details
                   </button>
                 </Link>
-                <img className="w-20 h-20" src={branchItem.logo} alt="icon" />
+                <img
+                  className="w-16 h-16 md:w-20 md:h-20"
+                  src={branchItem.logo}
+                  alt="icon"
+                />
               </div>
             </div>
           </div>

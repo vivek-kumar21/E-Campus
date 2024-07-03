@@ -6,6 +6,7 @@ import { URL } from "../../url";
 import FilterSection from "../../components/Internship/FilterSection";
 import Loader from "../../components/Loader";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { FaFilter } from "react-icons/fa";
 
 const Hero = () => {
   const [internships, setInternships] = useState([]);
@@ -19,22 +20,39 @@ const Hero = () => {
     duration: "All",
     place: ["All"],
   });
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       const res = await axios.get(
-        URL + `/api/v1/internships?page=${page}&limit=5`
+        `${URL}/api/v1/internships?page=${page}&limit=5`
       );
 
-      const numbers = [...Array(res.data.data.length - 1).keys()].map((num) => num + 1);
+      const numbers = [...Array(res.data.totalPages).keys()].map(
+        (num) => num + 1
+      );
       setPages(numbers);
       setIsLoading(false);
       setInternships(res.data.data);
     };
 
     fetchData();
-  }, [page, filters]);
+  }, [page]);
+
+  useEffect(() => {
+    // Filter internships when filters change
+    const applyFilters = async () => {
+      setIsLoading(true);
+      const res = await axios.get(
+        `${URL}/api/v1/internships?page=${page}&limit=5`
+      );
+      setIsLoading(false);
+      setInternships(res.data.data);
+    };
+
+    applyFilters();
+  }, [filters, page]);
 
   const handleBack = () => {
     if (page > 1) setPage(page - 1);
@@ -107,7 +125,7 @@ const Hero = () => {
   });
 
   return (
-    <div className="bg-[#fafbfc] mt-20 pb-12">
+    <div className="bg-[#fafbfc] mt-16 pb-12">
       <div className="flex flex-col items-center justify-center min-h-[60vh] py-16 px-6">
         <h1 className="xl:text-5xl lg:text-5xl sm:text-3xl text-2xl xl:leading-normal lg:leading-normal font-bold text-center">
           Find your{" "}
@@ -140,75 +158,100 @@ const Hero = () => {
 
       {/* All Internships */}
       <div className="bg-[#f5f6fc]">
-        <div className="container mx-auto px-6 py-10">
+        <div className="container mx-auto px-6 py-6">
           <h2 className="xl:text-4xl lg:text-3xl text-2xl font-semibold">
             Recommended Internships
           </h2>
-        </div>
-        <div className="flex items-start justify-center gap-x-16">
-          <div className="bg-white p-8 rounded-md">
-            <FilterSection
-              filters={filters}
-              onFilterChange={handleFilterChange}
-            />
-          </div>
-          <div className="xl:w-3/5 flex flex-col gap-y-3 xl:mt-0 mt-4 mb-4">
-            {isLoading ? (
-              <div className="h-[80vh] flex justify-center items-center w-full">
-                <Loader />
+
+          {/* Filter button for mobile devices */}
+          <button
+            onClick={() => setShowFilters(true)}
+            className="lg:hidden flex items-center bg-teal-500 text-white px-4 py-2 rounded-full mt-4 mb-8"
+          >
+            <FaFilter className="mr-2" />
+            Filters
+          </button>
+
+          <div className="flex">
+            {/* Filter Section */}
+            <div className="hidden md:mt-6 mt-0 lg:block lg:w-1/4 w-full lg:pr-8">
+              <FilterSection
+                filters={filters}
+                onFilterChange={handleFilterChange}
+              />
+            </div>
+
+            {/* Filter popup for mobile devices */}
+            {showFilters && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center lg:hidden">
+                <div className="bg-white p-8 rounded-md w-4/5 max-h-[80%] overflow-y-auto">
+                  <FilterSection
+                    filters={filters}
+                    onFilterChange={handleFilterChange}
+                    onClose={() => setShowFilters(false)}
+                  />
+                </div>
               </div>
-            ) : (
-              filteredInternships
-                .filter((item) => {
-                  return search.toLowerCase() === ""
-                    ? item
-                    : item.role.toLowerCase().includes(search.toLowerCase());
-                })
-                .map((intern, i) => (
-                  <div key={i}>
-                    <Jobs
-                      _id={intern._id}
-                      amount={intern.stipend}
-                      country={intern.location}
-                      company={intern.companyName}
-                      time={intern.duration}
-                      title={intern.role}
-                      type="Internship"
-                    />
-                  </div>
-                ))
             )}
+
+            {/* Internships Section */}
+            <div className="lg:w-3/4 w-full md:mt-6 mt-0">
+              {isLoading ? (
+                <Loader />
+              ) : (
+                filteredInternships
+                  .filter((item) => {
+                    return search.toLowerCase() === ""
+                      ? item
+                      : item.role.toLowerCase().includes(search.toLowerCase());
+                  })
+                  .map((intern, i) => (
+                    <div key={i} className="mb-4">
+                      <Jobs
+                        _id={intern._id}
+                        amount={intern.stipend}
+                        country={intern.location}
+                        company={intern.companyName}
+                        time={intern.duration}
+                        title={intern.role}
+                        type="Internship"
+                      />
+                    </div>
+                  ))
+              )}
+            </div>
           </div>
-        </div>
-        <div className="flex items-center justify-center">
-          <ul className="flex justify-center items-center gap-6 mb-6">
-            <li>
+
+          {/* Pagination */}
+          <div className="flex items-center justify-center mt-8">
+            <button
+              onClick={handleBack}
+              disabled={page === 1}
+              className="px-4 py-2 rounded-full bg-teal-500 text-white mr-2"
+            >
+              <IoIosArrowBack />
+            </button>
+            {pages.map((p) => (
               <button
-                onClick={handleBack}
-                className="text-md p-2 bg-teal-500 hover:bg-teal-600 rounded-full text-white"
+                key={p}
+                onClick={() => setPage(p)}
+                className={`px-4 py-2 rounded-full ${
+                  p === page
+                    ? "bg-teal-500 text-white"
+                    : "bg-white text-teal-500 border border-teal-500"
+                } mr-2`}
               >
-                <IoIosArrowBack />
+                {p}
               </button>
-            </li>
-            {pages.map((data, i) => (
-              <li
-                key={i}
-                className={`hover:text-teal-500 hover:underline cursor-pointer ${
-                  page === data ? "text-teal-500 font-bold" : ""
-                }`}
-              >
-                <p onClick={() => setPage(data)}>{data}</p>
-              </li>
             ))}
-            <li>
-              <button
-                onClick={handleNext}
-                className="text-md p-2 bg-teal-500 hover:bg-teal-600 rounded-full text-white"
-              >
-                <IoIosArrowForward />
-              </button>
-            </li>
-          </ul>
+            <button
+              onClick={handleNext}
+              disabled={page === pages.length}
+              className="px-4 py-2 rounded-full bg-teal-500 text-white"
+            >
+              <IoIosArrowForward />
+            </button>
+          </div>
         </div>
       </div>
     </div>

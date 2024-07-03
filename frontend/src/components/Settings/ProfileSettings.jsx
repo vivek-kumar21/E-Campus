@@ -10,7 +10,6 @@ const ProfileSettings = () => {
   const [loading, setLoading] = useState(false);
 
   const { user } = useContext(UserContext);
-  // console.log(email);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -26,12 +25,12 @@ const ProfileSettings = () => {
 
       if (file) {
         const formData = new FormData();
-        formData.append("avatar", file); // Append the file to the FormData
+        formData.append("avatar", file);
 
         const res = await axios.patch(URL + "/api/v1/users/avatar", formData, {
           withCredentials: true,
           headers: {
-            "Content-Type": "multipart/form-data", // Set the Content-Type header for FormData
+            "Content-Type": "multipart/form-data",
           },
         });
 
@@ -53,48 +52,49 @@ const ProfileSettings = () => {
   return (
     <div>
       <p className="text-xl text-gray-500">Profile</p>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center mt-4">
         <div className="relative">
           <img
-            className="h-32 w-32 rounded-full mt-4"
+            className="h-32 w-32 rounded-full"
             src={user.data.avatar}
             alt="profile_photo"
           />
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center mt-4 gap-x-6">
-        <div>
+      <div className="flex flex-col items-center justify-center mt-4 space-y-4">
+        <div className="w-full max-w-md">
           <p className="text-md">Username:</p>
           <input
             value={user.data.username}
-            className="p-2 border-2 pr-60"
+            className="w-full p-2 border-2"
             disabled
           />
         </div>
 
-        <div className="mt-2">
+        <div className="w-full max-w-md">
           <p className="text-md">Email:</p>
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="p-2 border-2 pr-60"
+            className="w-full p-2 border-2"
           />
         </div>
 
-        <div className="mt-2">
+        <div className="w-full max-w-md">
           <p className="text-md">Avatar:</p>
           <input
             type="file"
             onChange={(e) => setFile(e.target.files[0])}
-            className="p-2 border-2 pr-[135px]"
+            className="w-full p-2 border-2"
           />
         </div>
+
         <button
           onClick={handleUpdate}
-          className="flex gap-x-1 p-2 px-4 bg-teal-500 rounded-md mt-6 text-white hover:bg-teal-400"
+          className="w-full max-w-md flex items-center justify-center gap-x-1 p-2 px-4 bg-teal-500 rounded-md text-white hover:bg-teal-400"
         >
           {loading ? (
-            <div className="flex">
+            <div className="flex items-center">
               <Loader size="w-6 h-6" />
               <span>Updating...</span>
             </div>

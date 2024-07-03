@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { IoIosClose } from "react-icons/io";
 
 const title = [
   "All",
@@ -58,9 +59,15 @@ const filterOptions = [
   },
 ];
 
-const FilterSection = ({ filters, onFilterChange }) => {
+const FilterSection = ({ filters, onFilterChange, onClose }) => {
   return (
-    <div>
+    <div className="bg-white p-8 rounded-md w-full lg:w-auto lg:static lg:block">
+      <div className="flex justify-between items-center mb-4 lg:hidden">
+        <h3 className="font-bold">Filters</h3>
+        <button onClick={onClose} className="text-2xl">
+          <IoIosClose />
+        </button>
+      </div>
       {filterOptions.map((filter) => (
         <div key={filter.id} className="mb-6">
           <h3 className="font-bold">{filter.title}</h3>

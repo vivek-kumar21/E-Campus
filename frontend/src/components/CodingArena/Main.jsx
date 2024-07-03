@@ -112,7 +112,7 @@ const Main = () => {
           />
         </div>
 
-        <div className="w-full lg:w-1/2 mt-12 p-4 flex flex-col">
+        <div className="w-full lg:w-1/2 md:mt-12 mt-0 p-4 flex flex-col">
           <h3 className="text-lg font-semibold">Input:</h3>
           <textarea
             value={input}

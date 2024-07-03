@@ -14,26 +14,30 @@ const Main = () => {
   const location = useLocation();
 
   return (
-    <div className="flex mt-16">
-      <div className={`w-72 h-screen bg-gray-200 relative`}>
+    <div className="flex flex-col md:flex-row mt-16">
+      {/* Sidebar */}
+      <div className="w-full md:w-72 h-auto md:h-screen bg-gray-200">
         <div className="flex flex-col gap-x-4 p-4">
           <ul className="pt-4">
             {Menus.map((menu, i) => (
-              <Link
-                to={menu.link}
-                key={i}
-                className={`text-gray-600 mb-2 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md ${
-                  location.pathname.includes(menu.link) ? "bg-gray-300" : ""
-                }`}
-              >
-                <p className="text-xl">{menu.icon}</p>
-                <span>{menu.title}</span>
-              </Link>
+              <li key={i}>
+                <Link
+                  to={menu.link}
+                  className={`text-gray-600 mb-2 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-300 rounded-md ${
+                    location.pathname.includes(menu.link) ? "bg-gray-300" : ""
+                  }`}
+                >
+                  <span className="text-xl">{menu.icon}</span>
+                  <span>{menu.title}</span>
+                </Link>
+              </li>
             ))}
           </ul>
         </div>
       </div>
-      <div className="p-4 flex-1 h-screen">
+
+      {/* Main Content */}
+      <div className="flex-1 p-4 h-auto md:h-screen">
         <h1 className="text-3xl">Settings</h1>
 
         <Routes>

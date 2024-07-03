@@ -51,7 +51,7 @@ const BlogHome = () => {
         if (entries[0].isIntersecting && hasMore) {
           setLoading(true);
           const nextPage = Math.ceil(posts.length / 5) + 1;
-          
+
           axios
             .get(`${URL}/api/v1/blogs/posts?page=${nextPage}&limit=5${search}`)
             .then((res) => {
@@ -85,7 +85,7 @@ const BlogHome = () => {
     <>
       <Navbar />
 
-      <div className="px-8 mt-20 md:px-[200px] min-h-[80vh]">
+      <div className="px-4 md:px-8 lg:px-[200px] mt-20 min-h-[80vh]">
         <div className="flex items-center justify-center my-6">
           <div className="relative w-full sm:w-auto">
             <input
@@ -108,6 +108,7 @@ const BlogHome = () => {
                 key={post._id}
                 to={user ? `/blogs/posts/post/${post._id}` : "/login"}
                 ref={lastPostRef}
+                className="block"
               >
                 <HomePosts post={post} user={user} />
               </Link>
@@ -117,6 +118,7 @@ const BlogHome = () => {
               <Link
                 key={post._id}
                 to={user ? `/blogs/posts/post/${post._id}` : "/login"}
+                className="block"
               >
                 <HomePosts post={post} user={user} />
               </Link>
