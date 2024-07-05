@@ -72,28 +72,41 @@ const getInternshipDetails = asyncHandler(async (req, res) => {
 // get all internships
 const getAllInternships = asyncHandler(async (req, res) => {
   try {
-    const query = req.query.search
-      ? { $text: { $search: req.query.search } }
-      : {};
+    let searchQuery = {};
+
+    if (req.query.search) {
+      searchQuery = {
+        $or: [
+          { role: { $regex: req.query.search, $options: "i" } },
+          { companyName: { $regex: req.query.search, $options: "i" } },
+          { location: { $regex: req.query.search, $options: "i" } },
+        ],
+      };
+    }
+
     let page = Number(req.query.page) || 1;
     let limit = Number(req.query.limit) || 5;
     let skip = (page - 1) * limit;
 
-    const internships = await Internship.find(query).skip(skip).limit(limit);
+    const totalCount = await Internship.countDocuments(searchQuery);
 
-    return res
-      .status(200)
-      .json(
-        new ApiResponse(
-          200,
-          internships,
-          "Fetched all internships details successfully"
-        )
-      );
+    const internships = await Internship.find(searchQuery)
+      .skip(skip)
+      .limit(limit);
+
+    return res.status(200).json({
+      status: 200,
+      data: internships,
+      totalCount,
+      message: "Fetched all internships details successfully",
+    });
   } catch (error) {
+    console.error("Error fetching internships:", error.message);
     throw new ApiError(500, error.message);
   }
 });
+
+
 
 
 export {

@@ -12,7 +12,7 @@ const Hero = () => {
   const [internships, setInternships] = useState([]);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [pages, setPages] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState({
     title: ["All"],
@@ -22,44 +22,35 @@ const Hero = () => {
   });
   const [showFilters, setShowFilters] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      const res = await axios.get(
-        `${URL}/api/v1/internships?page=${page}&limit=5`
-      );
-
-      const numbers = [...Array(res.data.totalPages).keys()].map(
-        (num) => num + 1
-      );
-      setPages(numbers);
+  const fetchInternships = async (pageNumber = page, searchTerm = search) => {
+    setIsLoading(true);
+    try {
+      const res = await axios.get(`${URL}/api/v1/internships`, {
+        params: {
+          page: pageNumber,
+          limit: 5,
+          search: searchTerm,
+        },
+      });
       setIsLoading(false);
       setInternships(res.data.data);
-    };
-
-    fetchData();
-  }, [page]);
+      setTotalPages(Math.ceil(res.data.totalCount / 5));
+    } catch (error) {
+      console.error("Failed to fetch internships", error);
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Filter internships when filters change
-    const applyFilters = async () => {
-      setIsLoading(true);
-      const res = await axios.get(
-        `${URL}/api/v1/internships?page=${page}&limit=5`
-      );
-      setIsLoading(false);
-      setInternships(res.data.data);
-    };
-
-    applyFilters();
-  }, [filters, page]);
+    fetchInternships(page, search);
+  }, [page, filters, search]);
 
   const handleBack = () => {
     if (page > 1) setPage(page - 1);
   };
 
   const handleNext = () => {
-    if (page < pages.length) setPage(page + 1);
+    if (page < totalPages) setPage(page + 1);
   };
 
   const handleFilterChange = (id, value, checked) => {
@@ -197,27 +188,23 @@ const Hero = () => {
             {/* Internships Section */}
             <div className="lg:w-3/4 w-full md:mt-6 mt-0">
               {isLoading ? (
-                <Loader />
+                <div className="flex items-center justify-center min-h-screen">
+                  <Loader />
+                </div>
               ) : (
-                filteredInternships
-                  .filter((item) => {
-                    return search.toLowerCase() === ""
-                      ? item
-                      : item.role.toLowerCase().includes(search.toLowerCase());
-                  })
-                  .map((intern, i) => (
-                    <div key={i} className="mb-4">
-                      <Jobs
-                        _id={intern._id}
-                        amount={intern.stipend}
-                        country={intern.location}
-                        company={intern.companyName}
-                        time={intern.duration}
-                        title={intern.role}
-                        type="Internship"
-                      />
-                    </div>
-                  ))
+                filteredInternships.map((intern, i) => (
+                  <div key={i} className="mb-4">
+                    <Jobs
+                      _id={intern._id}
+                      amount={intern.stipend}
+                      country={intern.location}
+                      company={intern.companyName}
+                      time={intern.duration}
+                      title={intern.role}
+                      type="Internship"
+                    />
+                  </div>
+                ))
               )}
             </div>
           </div>
@@ -231,22 +218,22 @@ const Hero = () => {
             >
               <IoIosArrowBack />
             </button>
-            {pages.map((p) => (
+            {[...Array(totalPages)].map((_, p) => (
               <button
-                key={p}
-                onClick={() => setPage(p)}
+                key={p + 1}
+                onClick={() => setPage(p + 1)}
                 className={`px-4 py-2 rounded-full ${
-                  p === page
+                  p + 1 === page
                     ? "bg-teal-500 text-white"
                     : "bg-white text-teal-500 border border-teal-500"
                 } mr-2`}
               >
-                {p}
+                {p + 1}
               </button>
             ))}
             <button
               onClick={handleNext}
-              disabled={page === pages.length}
+              disabled={page === totalPages}
               className="px-4 py-2 rounded-full bg-teal-500 text-white"
             >
               <IoIosArrowForward />

@@ -46,4 +46,6 @@ const internshipSchema = new Schema(
   { timestamps: true }
 );
 
+internshipSchema.index({ role: "text", companyName: "text", location: "text" });
+
 export const Internship = mongoose.model("Internship", internshipSchema);
