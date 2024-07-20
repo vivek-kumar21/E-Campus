@@ -27,7 +27,7 @@ const Login = () => {
 
       localStorage.setItem("accessToken", res.data.data.accessToken);
 
-      console.log(res.data.data.user);
+      // console.log(res.data.data.user);
       setUser(res.data);
       setIsLoading(false);
       navigate("/");

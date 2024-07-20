@@ -1,64 +1,69 @@
-import { exec } from "child_process";
+import axios from "axios";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import fs from "fs/promises";
-import path from "path";
-import { fileURLToPath } from "url";
-import { v4 as uuidv4 } from "uuid";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const tempDir = path.join(__dirname, "..", "..", "public", "temp");
+const judge0API = "https://judge0-ce.p.rapidapi.com/submissions";
 
 const codeExecute = asyncHandler(async (req, res) => {
   const { language, code, input } = req.body;
 
-  const uniqueDir = path.join(tempDir, uuidv4());
-  await fs.mkdir(uniqueDir, { recursive: true });
+  const languageMapping = {
+    javascript: 63,
+    python: 71,
+    java: 62,
+    cpp: 54,
+  };
 
-  let command;
-  let fileName;
-
-  switch (language) {
-    case "javascript":
-      command = `echo "${input}" | node -e "${code.replace(/"/g, '\\"')}"`;
-      break;
-    case "python":
-      command = `echo "${input}" | python -c "${code.replace(/"/g, '\\"')}"`;
-      break;
-    case "java":
-      fileName = "Main.java";
-      await fs.writeFile(path.join(uniqueDir, fileName), code);
-      command = `cd "${uniqueDir}" && javac Main.java && echo "${input}" | java -cp . Main`;
-      break;
-    case "cpp":
-      fileName = "main.cpp";
-      await fs.writeFile(path.join(uniqueDir, fileName), code);
-      command = `cd "${uniqueDir}" && g++ main.cpp -o main && echo "${input}" | ./main`;
-      break;
-    default:
-      cleanup(uniqueDir);
-      return res.status(400).send("Language not supported");
+  const languageId = languageMapping[language];
+  if (!languageId) {
+    return res.status(400).send("Language not supported");
   }
 
-  exec(command, (error, stdout, stderr) => {
-    cleanup(uniqueDir);
-    if (error) {
-      return res.status(500).send(stderr || error.message);
-    }
-    res.send(stdout);
-  });
-});
+  const submissionData = {
+    source_code: code,
+    stdin: input,
+    language_id: languageId,
+  };
 
-const cleanup = (dir) => {
-  setTimeout(async () => {
-    try {
-      await fs.rm(dir, { recursive: true, force: true });
-      // console.log(`Temporary directory ${dir} deleted.`);
-    } catch (error) {
-      console.error(`Error deleting temporary directory ${dir}:`, error);
+  try {
+    const { data } = await axios.post(judge0API, submissionData, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+        "x-rapidapi-key": process.env.JUDGE0_API_KEY,
+      },
+    });
+
+    const submissionToken = data.token;
+
+    // Polling the Judge0 API for the result
+    let result;
+    while (true) {
+      const { data: resultData } = await axios.get(
+        `${judge0API}/${submissionToken}`,
+        {
+          headers: {
+            "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+            "x-rapidapi-key": process.env.JUDGE0_API_KEY,
+          },
+        }
+      );
+
+      if (resultData.status.id > 2) {
+        result = resultData;
+        break;
+      }
     }
-  }, 5000);
-};
+
+    if (result.status.id !== 3) {
+      return res
+        .status(500)
+        .send(result.stderr || result.compile_output || "Error executing code");
+    }
+
+    res.send(result.stdout);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 export { codeExecute };

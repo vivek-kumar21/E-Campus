@@ -70,7 +70,7 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-32 right-14 z-50 md:bottom-20 md:right-20">
+    <div className="fixed bottom-20 right-6 z-50 md:bottom-20 md:right-20">
       <div className="container mx-auto w-80 md:max-w-md">
         <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
           <div className="px-4 py-2 bg-gray-900 flex items-center justify-between">
