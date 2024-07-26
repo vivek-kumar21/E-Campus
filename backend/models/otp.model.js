@@ -10,13 +10,16 @@ const otpSchema = new Schema({
     type: String,
     required: true,
   },
+  link: {
+    type: String,
+  },
   oldPassword: {
     type: String,
-    required: true,
+    // required: true,
   },
   newPassword: {
     type: String,
-    required: true,
+    // required: true,
   },
   createdAt: {
     type: Date,
@@ -34,14 +37,14 @@ async function sendVerificationEmail(email, otp) {
              <p>Here is your OTP code: ${otp}</p>`
     );
 
-    console.log("Email sent successfully: ", mailResponse);
+    // console.log("Email sent successfully: ", mailResponse);
   } catch (error) {
     console.log("Error occurred while sending email: ", error);
   }
 }
 
 otpSchema.pre("save", async function (next) {
-  console.log("New document saved to the database");
+  // console.log("New document saved to the database");
   if (this.isNew) {
     await sendVerificationEmail(this.email, this.otp);
   }

@@ -8,13 +8,13 @@ import {
   logoutUser,
   otp,
   passwordOtp,
-  refetchUser,
   refreshAccessToken,
   registerUser,
   resetPasswordChange,
   resetPasswordCheck,
   updateAccountDetails,
   updateUserAvatar,
+  validateEmail,
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -35,6 +35,7 @@ router.route("/forgot-password").post(forgotPassword);
 router.route("/reset-password/:id/:token").get(resetPasswordCheck);
 router.route("/reset-password/:id/:token").post(resetPasswordChange);
 router.route("/current-user").get(verifyJWT, getCurrentUser);
+router.route("/validate-email").post(validateEmail);
 // router.route("/refetch").get(refetchUser);
 
 // Profile updation routes

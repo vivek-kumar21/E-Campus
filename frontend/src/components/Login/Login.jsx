@@ -3,12 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
 import axios from "axios";
 import { URL } from "../../url";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -27,13 +28,13 @@ const Login = () => {
 
       localStorage.setItem("accessToken", res.data.data.accessToken);
 
-      // console.log(res.data.data.user);
+      toast.success(res.data.message);
       setUser(res.data);
       setIsLoading(false);
       navigate("/");
     } catch (error) {
       setIsLoading(false);
-      setError("Invalid email or password.");
+      toast.error("Invalid email or password.");
     }
   };
 
@@ -66,7 +67,7 @@ const Login = () => {
               />
             </div>
 
-            {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
+            {/* {error && <div className="text-red-500 text-sm mt-1">{error}</div>} */}
 
             <div className="mt-8 flex justify-between items-center">
               <Link className="font-medium text-sm text-gray-500 hover:text-teal-300 duration-300">

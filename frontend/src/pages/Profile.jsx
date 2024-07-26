@@ -1,34 +1,10 @@
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { URL } from "../url";
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
 
 const Profile = () => {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [avatar, setAvatar] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          `${URL}/api/v1/users/current-user`,
-          { withCredentials: true }
-        );
-
-        // console.log(res.data.data.avatar);
-
-        setEmail(res.data.data.email);
-        setUsername(res.data.data.username);
-        setAvatar(res.data.data.avatar);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { user } = useContext(UserContext);
 
   return (
     <div>
@@ -36,11 +12,13 @@ const Profile = () => {
       <div className="flex flex-col items-center justify-center gap-10 mt-24 mb-10">
         <img
           className="w-[200px] h-[200px] rounded-full"
-          src={avatar}
+          src={user.data.avatar}
           alt="profile_picture"
         />
-        <p className="text-3xl text-gray-900 font-bold -mt-6">{username}</p>
-        <p className="text-xl text-gray-800 -mt-10">{email}</p>
+        <p className="text-3xl text-gray-900 font-bold -mt-6">
+          {user.data.username}
+        </p>
+        <p className="text-xl text-gray-800 -mt-10">{user.data.email}</p>
       </div>
       <Footer />
     </div>

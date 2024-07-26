@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { URL } from "../../url";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -9,12 +11,42 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState("");
   // console.log(avatar);
 
   const navigate = useNavigate();
 
   const handleSignup = async () => {
+    if (username.length < 4) {
+      toast.error("Username must be at least 4 characters long");
+      return;
+    }
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+
     setIsLoading(true);
+
+    // Validate email
+    try {
+      const validationRes = await axios.post(
+        `${URL}/api/v1/users/validate-email`,
+        {
+          email,
+        }
+      );
+
+      if (!validationRes.data.is_valid) {
+        toast.error("Invalid email address");
+        setIsLoading(false);
+        return;
+      }
+    } catch (error) {
+      toast.error("Email validation failed");
+      setIsLoading(false);
+      return;
+    }
 
     // Create FormData object
     const formData = new FormData();
@@ -24,13 +56,9 @@ const Signup = () => {
     formData.append("avatar", avatar);
 
     try {
-      const res = await axios.post(
-        `${URL}/api/v1/users/register`,
-        formData,
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.post(`${URL}/api/v1/users/register`, formData, {
+        withCredentials: true,
+      });
 
       setUsername(res.data.username);
       setEmail(res.data.email);
@@ -38,11 +66,25 @@ const Signup = () => {
       setAvatar(res.data.avatar);
 
       setIsLoading(false);
+      toast.success("Sign up successfully");
 
       navigate("/login");
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      if (error.response) {
+        const htmlContent = error.response.data;
+        const errorMessageMatch = htmlContent.match(
+          /Error: (.*?)(<br>|<\/pre>)/
+        );
+
+        let errorMessage = "An unknown error occurred";
+        if (errorMessageMatch) {
+          errorMessage = errorMessageMatch[1].trim();
+        }
+
+        // setError(errorMessage);
+        toast.error(errorMessage);
+      }
     }
   };
 
@@ -93,7 +135,9 @@ const Signup = () => {
             />
           </div>
 
-          <div className="mt-8 flex flex-col gap-y-4">
+          {/* {error && <p className="text-red-500 text-sm">{error}</p>} */}
+
+          <div className="mt-5 flex flex-col gap-y-4">
             <button
               onClick={handleSignup}
               className={`relative active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all rounded-xl bg-teal-500 text-white text-lg font-bold ${

@@ -1,40 +1,56 @@
 import NavLinks from "./NavLinks";
 import { IoMenu, IoClose } from "react-icons/io5";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
 import { URL } from "../../url";
 import img from "../../assets/e-campus.png";
+import axios from "axios";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
+  // console.log(user);
 
   const menuRef = useRef();
   const imgRef = useRef();
 
-  window.addEventListener("click", (e) => {
-    if (e.target !== menuRef.current && e.target !== imgRef.current) {
-      setIsOpen(false);
-    }
-  });
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(e.target) &&
+        imgRef.current &&
+        !imgRef.current.contains(e.target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("click", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   const handleLogout = async () => {
     try {
-      const res = await fetch(URL + "/api/v1/users/logout", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${user.data.accessToken}` },
-      });
+      const res = await axios.post(
+        URL + "/api/v1/users/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
 
       console.log("logout: ", res);
 
-      // Clear the token from localStorage
       localStorage.clear();
-
       setUser(null);
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -117,7 +133,7 @@ const Navbar = () => {
                     onClick={() => setIsOpen(false)}
                     className="p-2 text-sm cursor-pointer rounded hover:bg-teal-200"
                   >
-                    <h3 onClick={handleLogout}>Logout</h3>
+                    <h3 onClick={() => handleLogout()}>Logout</h3>
                   </li>
                 </ul>
               </div>

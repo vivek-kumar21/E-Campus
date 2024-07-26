@@ -21,6 +21,8 @@ import Settings from "./pages/Settings/Settings";
 import Branch from "./pages/Branch/Branch";
 import BranchDetails from "./components/Branch/BranchDetails";
 import CodingArena from "./pages/CodingArena/CodingArena";
+import ForgotPassword from "./components/Login/ForgotPassword";
+import Auth from "./Auth";
 
 function App() {
   return (
@@ -32,13 +34,10 @@ function App() {
 
 function AppContent() {
   const { user, getUser } = useContext(UserContext);
-  const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    if (accessToken) {
-      getUser();
-    }
-  }, [accessToken]);
+    getUser();
+  }, []);
 
   return (
     <Routes>
@@ -49,11 +48,26 @@ function AppContent() {
         <>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </>
       )}
       <Route path="/chatbot" element={<ChatBot />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/settings/*" element={<Settings />} />
+      <Route
+        path="/profile"
+        element={
+          <Auth>
+            <Profile />
+          </Auth>
+        }
+      />
+      <Route
+        path="/settings/*"
+        element={
+          <Auth>
+            <Settings />
+          </Auth>
+        }
+      />
 
       <Route path="/roadmaps" element={<Roadmaps />} />
       <Route path="/sheets" element={<Sheets />} />

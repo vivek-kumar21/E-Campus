@@ -4,10 +4,8 @@ import axios from "axios";
 import { URL } from "../../url";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
-const OTPField = () => {
+const ForgotPassword = () => {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const otpFields = useRef([]);
   const [loading, setLoading] = useState(false);
@@ -22,19 +20,18 @@ const OTPField = () => {
     const combinedOtp = otp.join("");
     try {
       setLoading(true);
-      const res = await axios.post(
+      await axios.post(
         URL + "/api/v1/users/change-password",
         { email: user.data.email, otp: combinedOtp },
         { withCredentials: true }
       );
 
-      toast.success(res.data.message);
       navigate("/settings/password");
       setSuccess(true);
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      toast.error(error.response.data.message);
+      console.log(error);
       setError(true);
     }
   };
@@ -125,4 +122,4 @@ const OTPField = () => {
   );
 };
 
-export default OTPField;
+export default ForgotPassword;

@@ -8,6 +8,7 @@ import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
 import otpGenerator from "otp-generator";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import axios from "axios";
 
 import { mailSender } from "../utils/mailSender.js";
 
@@ -60,9 +61,9 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   let avatar;
-  if(req.file){
+  if (req.file) {
     const result = await uploadOnCloudinary(req.file.buffer);
-    if(result){
+    if (result) {
       avatar = result.secure_url;
     }
   }
@@ -176,6 +177,7 @@ const loginUser = asyncHandler(async (req, res) => {
     // if we use options then cookies can only be modified in server and not from frontend
     httpOnly: true,
     secure: true,
+    sameSite: "None",
   };
 
   return res
@@ -193,6 +195,30 @@ const loginUser = asyncHandler(async (req, res) => {
         "User logged in successfully"
       )
     );
+});
+
+const validateEmail = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  const domain = email.split("@")[1];
+  const options = {
+    method: "GET",
+    url: "https://mailcheck.p.rapidapi.com/",
+    params: { domain },
+    headers: {
+      "x-rapidapi-key": "517608fa6bmsh74a79f85d1e8843p11f098jsn6fa330e310aa",
+      "x-rapidapi-host": "mailcheck.p.rapidapi.com",
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    const is_valid = response.data.disposable === false;
+    res.json({ is_valid });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 /****************************************************REFETCH USER****************************************************/
@@ -215,12 +241,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     {
       $unset: {
         refreshToken: 1,
-        accessToken: 1,
       },
-      // $set: {
-      //   refreshToken: undefined,
-      //   accessToken: undefined,
-      // },
     },
     {
       new: true,
@@ -230,6 +251,7 @@ const logoutUser = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: true,
+    sameSite: "None",
   };
 
   return res
@@ -311,19 +333,6 @@ const passwordOtp = asyncHandler(async (req, res) => {
     const otpPayload = { email, otp, oldPassword, newPassword };
     await OTP.create(otpPayload);
 
-    try {
-      const mailResponse = await mailSender(
-        email,
-        "Password change email",
-        `<h1>Please confirm your OTP</h1>
-        <p>Here is your OTP code: ${otp}</p>`
-      );
-
-      console.log("Email sent successfully: ", mailResponse);
-    } catch (error) {
-      console.log("Error occurred while sending email: ", error);
-    }
-
     return res
       .status(200)
       .json(new ApiResponse(200, otp, "OTP sent successfully"));
@@ -331,7 +340,6 @@ const passwordOtp = asyncHandler(async (req, res) => {
     console.log(error.message);
   }
 });
-
 
 /*********************************************CHANGE CURRENT USER PASSWORD********************************************/
 const changeCurrentPassword = asyncHandler(async (req, res) => {
@@ -356,10 +364,9 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Password changed successfully"));
 });
 
-
 /***************************************************FORGOT PASSWORD***************************************************/
 const forgotPassword = asyncHandler(async (req, res) => {
-  const { email } = req.body;
+  const { email, otp } = req.body;
   try {
     const oldUser = await User.findOne({ email });
 
@@ -374,30 +381,10 @@ const forgotPassword = asyncHandler(async (req, res) => {
       expiresIn: "5m",
     });
 
-    // const link = `http://localhost:8000/api/v1/users/reset-password/${oldUser._id}/${token}`;
-    const link = `https://e-campus-backend.vercel.app/api/v1/users/reset-password/${oldUser._id}/${token}`;
-    var transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "stepney848@gmail.com",
-        pass: "gvkrcojidllyslce",
-      },
-    });
-
-    var mailOptions = {
-      from: "stepney848@gmail.com",
-      to: email,
-      subject: "Reset Password",
-      text: link,
-    };
-
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Email sent: " + info.response);
-      }
-    });
+    const link = `http://localhost:8000/api/v1/users/reset-password/${oldUser._id}/${token}`;
+    // const link = `https://e-campus-backend.vercel.app/api/v1/users/reset-password/${oldUser._id}/${token}`;
+    const otpPayload = { email, otp, link };
+    await OTP.create(otpPayload);
 
     return res
       .status(200)
@@ -537,6 +524,7 @@ export {
   registerUser,
   loginUser,
   otp,
+  validateEmail,
   logoutUser,
   refreshAccessToken,
   passwordOtp,

@@ -10,6 +10,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import DOMPurify from "dompurify";
 import Loader from "../../components/Loader";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -84,7 +86,7 @@ const CreatePost = () => {
         }
       );
 
-      // console.log(res);
+      toast.success(res.data.message);
       navigate("/blogs/posts/post/" + res.data.data._id);
       setLoading(false);
     } catch (err) {

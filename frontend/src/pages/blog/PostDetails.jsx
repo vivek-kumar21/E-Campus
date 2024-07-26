@@ -9,6 +9,8 @@ import Footer from "../../components/Footer/Footer";
 import Comment from "../../components/blog/Comment";
 import { UserContext } from "../../context/userContext";
 import Loader from "../../components/Loader";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PostDetails = () => {
   const postId = useParams().id;
@@ -28,10 +30,10 @@ const PostDetails = () => {
 
       // console.log(res.data.statusCode);
       if (res.data.statusCode === 200) {
-        console.log("Post deleted successfully");
+        toast.success("Post deleted successfully");
         navigate("/blogs");
       } else {
-        console.log("Post deletion failed");
+        toast.error("Post deletion failed");
       }
     } catch (err) {
       console.log(err);
