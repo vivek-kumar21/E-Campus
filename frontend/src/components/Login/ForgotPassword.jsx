@@ -1,123 +1,81 @@
-import React, { useState, useRef, useContext } from "react";
-import Loader from "../Loader";
+import React, { useState } from "react";
 import axios from "axios";
 import { URL } from "../../url";
-import { UserContext } from "../../context/userContext";
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ForgotPassword = () => {
-  const [otp, setOtp] = useState(["", "", "", ""]);
-  const otpFields = useRef([]);
+  const [password, setPassword] = useState("");
+  const [retypePassword, setRetypePassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
-  // console.log(user.data.email);
 
-  const handleVerify = async () => {
-    const combinedOtp = otp.join("");
+  const { id, token } = useParams();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== retypePassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    setLoading(true);
     try {
-      setLoading(true);
-      await axios.post(
-        URL + "/api/v1/users/change-password",
-        { email: user.data.email, otp: combinedOtp },
-        { withCredentials: true }
-      );
+      const res = await axios.post(URL + "/api/v1/users/reset-password", {
+        id,
+        token,
+        password,
+      });
 
-      navigate("/settings/password");
-      setSuccess(true);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-      setError(true);
-    }
-  };
-
-  // Function to handle OTP input change
-  const handleChange = (index, event) => {
-    const value = event.target.value;
-    // Ensure input is a single digit and update OTP array
-    if (/^\d*$/.test(value) && value.length <= 1) {
-      const newOtp = [...otp];
-      newOtp[index] = value;
-      setOtp(newOtp);
-
-      // Focus on next input field, if available
-      if (index < 3 && value !== "") {
-        otpFields.current[index + 1].focus();
+      if (res.data.statusCode === 200) {
+        toast.success("Password reset successfully");
+        navigate("/login");
+      } else {
+        toast.error("Password reset failed");
       }
-    }
-  };
-
-  // Function to handle paste event (prevent pasting multiple digits)
-  const handlePaste = (event) => {
-    event.preventDefault();
-    const pasteData = event.clipboardData
-      .getData("text/plain")
-      .trim()
-      .slice(0, 4);
-    const pasteArray = pasteData.split("").filter((char) => /^\d$/.test(char));
-    const newOtp = [...otp];
-    for (let i = 0; i < pasteArray.length && i < 4; i++) {
-      newOtp[i] = pasteArray[i];
-    }
-    setOtp(newOtp);
-  };
-
-  // Function to handle input onKeyUp (backspace navigation)
-  const handleKeyUp = (index, event) => {
-    if (event.key === "Backspace" && index > 0 && otp[index] === "") {
-      otpFields.current[index - 1].focus();
+    } catch (err) {
+      toast.error("Error resetting password");
+      console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white border rounded-lg shadow-lg p-6 flex flex-col items-center justify-center mt-24">
-      <h2 className="text-lg font-medium mb-4">Enter OTP</h2>
-      <div className="flex items-center justify-center space-x-4">
-        {otp.map((digit, index) => (
-          <input
-            key={index}
-            ref={(el) => (otpFields.current[index] = el)}
-            type="text"
-            maxLength="1"
-            value={digit}
-            onChange={(e) => handleChange(index, e)}
-            onPaste={handlePaste}
-            onKeyUp={(e) => handleKeyUp(index, e)}
-            className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl font-semibold focus:outline-none focus:border-blue-500"
-          />
-        ))}
-      </div>
-      <p className="text-sm text-gray-500 mt-2">
-        Enter the 4-digit OTP sent to your email.
-      </p>
-
-      {success && (
-        <p className="text-sm text-green-600">Password changed successfully!</p>
-      )}
-      {error && (
-        <p className="text-sm text-red-600">
-          Failed to verify OTP. Please try again.
-        </p>
-      )}
-
-      <button
-        onClick={handleVerify}
-        className="flex gap-x-1 p-2 px-4 bg-teal-500 rounded-md mt-4 text-white hover:bg-teal-400"
-      >
-        {loading ? (
-          <div className="flex">
-            <Loader size="w-6 h-6" />
-            <span>Verifying...</span>
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-6 text-center">Reset Password</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-gray-700">New Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-3 py-2 border rounded-md"
+              required
+            />
           </div>
-        ) : (
-          <span>Verify</span>
-        )}
-      </button>
+          <div className="mb-4">
+            <label className="block text-gray-700">Retype New Password</label>
+            <input
+              type="password"
+              value={retypePassword}
+              onChange={(e) => setRetypePassword(e.target.value)}
+              className="w-full px-3 py-2 border rounded-md"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-teal-500 text-white py-2 rounded-md hover:bg-teal-600 transition duration-200"
+            disabled={loading}
+          >
+            {loading ? "Resetting..." : "Reset Password"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

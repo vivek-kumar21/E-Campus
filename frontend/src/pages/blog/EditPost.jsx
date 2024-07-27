@@ -89,9 +89,6 @@ const EditPost = () => {
     categories.forEach((category) => {
       formData.append("categories[]", category);
     });
-    
-    // Logging for debugging
-    console.log("FormData:", formData);
 
     try {
       setIsLoading(true);

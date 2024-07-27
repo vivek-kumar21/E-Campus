@@ -366,60 +366,48 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 
 /***************************************************FORGOT PASSWORD***************************************************/
 const forgotPassword = asyncHandler(async (req, res) => {
-  const { email, otp } = req.body;
+  const { email } = req.body;
   try {
-    const oldUser = await User.findOne({ email });
+    const user = await User.findOne({ email });
 
-    if (!oldUser) {
+    if (!user) {
       throw new ApiError(400, "User not found!!");
     }
 
-    // this secret will be used to create our token
     const secret = process.env.JWT_SECRET;
-    // this token will contain email and id of the user
-    const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
+
+    const token = jwt.sign({ email: user.email, id: user._id }, secret, {
       expiresIn: "5m",
     });
 
-    const link = `http://localhost:8000/api/v1/users/reset-password/${oldUser._id}/${token}`;
-    // const link = `https://e-campus-backend.vercel.app/api/v1/users/reset-password/${oldUser._id}/${token}`;
-    const otpPayload = { email, otp, link };
-    await OTP.create(otpPayload);
+    const resetUrl = `${process.env.CLIENT_URL}/reset-password/${user._id}/${token}`;
+
+    const message = `
+    <h1>Password Reset</h1>
+    <p>Please use the following link to reset your password:</p>
+    <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
+  `;
+
+    await mailSender(email, "Password Reset Request", message);
 
     return res
       .status(200)
       .json(
-        new ApiResponse(200, link, "Reset password link created successfully")
+        new ApiResponse(
+          200,
+          resetUrl,
+          "Reset password link created successfully"
+        )
       );
   } catch (error) {
     throw new ApiError(400, "Error while creating link: ", error);
   }
 });
 
-/***********************************************RESET PASSWORD CHECK***********************************************/
-const resetPasswordCheck = asyncHandler(async (req, res) => {
-  const { id, token } = req.params;
-  console.log(req.params);
-
-  const oldUser = await User.findOne({ _id: id });
-
-  if (!oldUser) {
-    throw new ApiError(400, "User not found!!");
-  }
-
-  const secret = process.env.JWT_SECRET;
-  try {
-    // const verify = jwt.verify(token, secret);
-    return res.status(200).json(new ApiResponse(200, {}, "Verified"));
-  } catch (error) {
-    throw new ApiError(400, "Not Verified");
-  }
-});
-
 /***********************************************RESET PASSWORD CHANGE***********************************************/
 const resetPasswordChange = asyncHandler(async (req, res) => {
-  const { id, token } = req.params;
-  const { password } = req.body;
+  const { id, token, password } = req.body;
+  // const { password } = req.body;
 
   const oldUser = await User.findOne({ _id: id });
 
@@ -532,7 +520,6 @@ export {
   passwordOtp,
   changeCurrentPassword,
   forgotPassword,
-  resetPasswordCheck,
   resetPasswordChange,
   getCurrentUser,
   updateAccountDetails,

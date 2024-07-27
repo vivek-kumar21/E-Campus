@@ -11,7 +11,6 @@ import {
   refreshAccessToken,
   registerUser,
   resetPasswordChange,
-  resetPasswordCheck,
   updateAccountDetails,
   updateUserAvatar,
   validateEmail,
@@ -32,11 +31,9 @@ router.route("/logout").post(verifyJWT, logoutUser);
 router.route("/refresh-token").post(refreshAccessToken);
 router.route("/change-password").post(verifyJWT, changeCurrentPassword);
 router.route("/forgot-password").post(forgotPassword);
-router.route("/reset-password/:id/:token").get(resetPasswordCheck);
-router.route("/reset-password/:id/:token").post(resetPasswordChange);
+router.route("/reset-password").post(resetPasswordChange);
 router.route("/current-user").get(verifyJWT, getCurrentUser);
 router.route("/validate-email").post(validateEmail);
-// router.route("/refetch").get(refetchUser);
 
 // Profile updation routes
 router.route("/update-account").put(verifyJWT,updateAccountDetails);

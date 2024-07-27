@@ -163,9 +163,9 @@ const PostDetails = () => {
             className="mx-auto mt-8 text-gray-700"
             dangerouslySetInnerHTML={{ __html: post.description }}
           />
-          <div className="flex items-center mt-8 space-x-4 font-semibold text-gray-700">
+          <div className="flex flex-col mt-8 space-y-2 md:flex-row md:items-center md:space-y-0 md:space-x-4 font-semibold text-gray-700">
             <p>Categories:</p>
-            <div className="flex space-x-2">
+            <div className="flex flex-wrap gap-2">
               {post.categories?.map((c, i) => (
                 <div
                   key={i}

@@ -9,7 +9,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <div className="flex flex-col items-center justify-center gap-8 mt-24 mb-10 p-4 bg-white shadow-lg rounded-lg">
+      <div className="flex flex-col items-center justify-center gap-8 mt-24 mb-10 p-4 bg-white shadow-sm">
         <img
           className="w-[150px] h-[150px] rounded-full border-4 border-gray-300"
           src={user.data.avatar}

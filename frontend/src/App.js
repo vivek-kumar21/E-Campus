@@ -21,6 +21,7 @@ import Settings from "./pages/Settings/Settings";
 import Branch from "./pages/Branch/Branch";
 import BranchDetails from "./components/Branch/BranchDetails";
 import CodingArena from "./pages/CodingArena/CodingArena";
+import ForgotPasswordEmail from "./components/Login/ForgotPasswordEmail";
 import ForgotPassword from "./components/Login/ForgotPassword";
 
 function App() {
@@ -84,6 +85,14 @@ function AppContent() {
       />
       <Route
         path="/forgot-password"
+        element={
+          <PublicRoute>
+            <ForgotPasswordEmail />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/reset-password/:id/:token"
         element={
           <PublicRoute>
             <ForgotPassword />

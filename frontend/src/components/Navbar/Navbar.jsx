@@ -46,8 +46,6 @@ const Navbar = () => {
         }
       );
 
-      console.log("logout: ", res);
-
       localStorage.clear();
       setUser(null);
       navigate("/");

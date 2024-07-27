@@ -25,42 +25,48 @@ const branchDetails = [
         name: "Operating System",
         desc: "An Operating System (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs.",
         logo: cseImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGz9donHRrE9I3Mwn6XdP8p&si=2o4kXMxr5-dISD9h",
         notes: "",
       },
       {
         name: "Database Management System",
         desc: "A Database Management System (DBMS) is software that interacts with end users, applications, and the database itself to capture and analyze data.",
         logo: cseImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y&si=T4PaMDpbiN3otIQM",
         notes: "",
       },
       {
         name: "Compiler Design",
         desc: "Compiler Design principles provide an in-depth view of translation and optimization process, which include lexical analysis, syntax analysis, and code generation.",
         logo: cseImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiEKtKSIHYusizkESC42diyc&si=ssU6_NPiyWhcHsI_",
         notes: "",
       },
       {
         name: "Discrete Mathematics",
         desc: "Discrete Mathematics involves study of mathematical structures that are fundamentally discrete rather than continuous.",
         logo: cseImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiH2wwES9vPWsEL6ipTaUSl3&si=uZiL_x1QDMNFr3Vg",
         notes: "",
       },
       {
         name: "Data Structure and Algorithms",
         desc: "Data Structures and Algorithms involve the study of data organization, management, and storage formats that enable efficient access and modification.",
         logo: cseImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&si=G0jQOhu2lto0h87E",
         notes: "",
       },
       {
         name: "Digital Electronics",
         desc: "Digital Electronics is a field of electronics involving the study of digital signals and the engineering of devices that use or produce them.",
         logo: cseImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGmXg4NoX6R31AsC5LeCPHe&si=6_xBy283O21EAgsl",
         notes: "",
       },
     ],
@@ -76,42 +82,48 @@ const branchDetails = [
         name: "Operating System",
         desc: "An Operating System (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs.",
         logo: itImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGz9donHRrE9I3Mwn6XdP8p&si=2o4kXMxr5-dISD9h",
         notes: "",
       },
       {
         name: "Database Management System",
         desc: "A Database Management System (DBMS) is software that interacts with end users, applications, and the database itself to capture and analyze data.",
         logo: itImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y&si=T4PaMDpbiN3otIQM",
         notes: "",
       },
       {
         name: "Compiler Design",
         desc: "Compiler Design principles provide an in-depth view of translation and optimization process, which include lexical analysis, syntax analysis, and code generation.",
         logo: itImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiEKtKSIHYusizkESC42diyc&si=ssU6_NPiyWhcHsI_",
         notes: "",
       },
       {
         name: "Discrete Mathematics",
         desc: "Discrete Mathematics involves study of mathematical structures that are fundamentally discrete rather than continuous.",
         logo: itImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiH2wwES9vPWsEL6ipTaUSl3&si=uZiL_x1QDMNFr3Vg",
         notes: "",
       },
       {
         name: "Data Structure and Algorithms",
         desc: "Data Structures and Algorithms involve the study of data organization, management, and storage formats that enable efficient access and modification.",
         logo: itImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&si=G0jQOhu2lto0h87E",
         notes: "",
       },
       {
         name: "Digital Electronics",
         desc: "Digital Electronics is a field of electronics involving the study of digital signals and the engineering of devices that use or produce them.",
         logo: itImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGmXg4NoX6R31AsC5LeCPHe&si=6_xBy283O21EAgsl",
         notes: "",
       },
     ],
@@ -128,42 +140,48 @@ const branchDetails = [
         name: "Operating System",
         desc: "An Operating System (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs.",
         logo: aimlImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGz9donHRrE9I3Mwn6XdP8p&si=2o4kXMxr5-dISD9h",
         notes: "",
       },
       {
         name: "Database Management System",
         desc: "A Database Management System (DBMS) is software that interacts with end users, applications, and the database itself to capture and analyze data.",
         logo: aimlImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y&si=T4PaMDpbiN3otIQM",
         notes: "",
       },
       {
         name: "Compiler Design",
         desc: "Compiler Design principles provide an in-depth view of translation and optimization process, which include lexical analysis, syntax analysis, and code generation.",
         logo: aimlImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiEKtKSIHYusizkESC42diyc&si=ssU6_NPiyWhcHsI_",
         notes: "",
       },
       {
         name: "Discrete Mathematics",
         desc: "Discrete Mathematics involves study of mathematical structures that are fundamentally discrete rather than continuous.",
         logo: aimlImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiH2wwES9vPWsEL6ipTaUSl3&si=uZiL_x1QDMNFr3Vg",
         notes: "",
       },
       {
         name: "Data Structure and Algorithms",
         desc: "Data Structures and Algorithms involve the study of data organization, management, and storage formats that enable efficient access and modification.",
         logo: aimlImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&si=G0jQOhu2lto0h87E",
         notes: "",
       },
       {
         name: "Digital Electronics",
         desc: "Digital Electronics is a field of electronics involving the study of digital signals and the engineering of devices that use or produce them.",
         logo: aimlImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGmXg4NoX6R31AsC5LeCPHe&si=6_xBy283O21EAgsl",
         notes: "",
       },
     ],
@@ -179,42 +197,48 @@ const branchDetails = [
         name: "Operating System",
         desc: "An Operating System (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs.",
         logo: iotImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGz9donHRrE9I3Mwn6XdP8p&si=2o4kXMxr5-dISD9h",
         notes: "",
       },
       {
         name: "Database Management System",
         desc: "A Database Management System (DBMS) is software that interacts with end users, applications, and the database itself to capture and analyze data.",
         logo: iotImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y&si=T4PaMDpbiN3otIQM",
         notes: "",
       },
       {
         name: "Compiler Design",
         desc: "Compiler Design principles provide an in-depth view of translation and optimization process, which include lexical analysis, syntax analysis, and code generation.",
         logo: iotImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiEKtKSIHYusizkESC42diyc&si=ssU6_NPiyWhcHsI_",
         notes: "",
       },
       {
         name: "Discrete Mathematics",
         desc: "Discrete Mathematics involves study of mathematical structures that are fundamentally discrete rather than continuous.",
         logo: iotImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiH2wwES9vPWsEL6ipTaUSl3&si=uZiL_x1QDMNFr3Vg",
         notes: "",
       },
       {
         name: "Data Structure and Algorithms",
         desc: "Data Structures and Algorithms involve the study of data organization, management, and storage formats that enable efficient access and modification.",
         logo: iotImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&si=G0jQOhu2lto0h87E",
         notes: "",
       },
       {
         name: "Digital Electronics",
         desc: "Digital Electronics is a field of electronics involving the study of digital signals and the engineering of devices that use or produce them.",
         logo: iotImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGmXg4NoX6R31AsC5LeCPHe&si=6_xBy283O21EAgsl",
         notes: "",
       },
     ],
@@ -230,42 +254,48 @@ const branchDetails = [
         name: "Operating System",
         desc: "An Operating System (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs.",
         logo: eceImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGz9donHRrE9I3Mwn6XdP8p&si=2o4kXMxr5-dISD9h",
         notes: "",
       },
       {
         name: "Database Management System",
         desc: "A Database Management System (DBMS) is software that interacts with end users, applications, and the database itself to capture and analyze data.",
         logo: eceImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y&si=T4PaMDpbiN3otIQM",
         notes: "",
       },
       {
         name: "Compiler Design",
         desc: "Compiler Design principles provide an in-depth view of translation and optimization process, which include lexical analysis, syntax analysis, and code generation.",
         logo: eceImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiEKtKSIHYusizkESC42diyc&si=ssU6_NPiyWhcHsI_",
         notes: "",
       },
       {
         name: "Discrete Mathematics",
         desc: "Discrete Mathematics involves study of mathematical structures that are fundamentally discrete rather than continuous.",
         logo: eceImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiH2wwES9vPWsEL6ipTaUSl3&si=uZiL_x1QDMNFr3Vg",
         notes: "",
       },
       {
         name: "Data Structure and Algorithms",
         desc: "Data Structures and Algorithms involve the study of data organization, management, and storage formats that enable efficient access and modification.",
         logo: eceImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&si=G0jQOhu2lto0h87E",
         notes: "",
       },
       {
         name: "Digital Electronics",
         desc: "Digital Electronics is a field of electronics involving the study of digital signals and the engineering of devices that use or produce them.",
         logo: eceImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGmXg4NoX6R31AsC5LeCPHe&si=6_xBy283O21EAgsl",
         notes: "",
       },
     ],
@@ -281,42 +311,48 @@ const branchDetails = [
         name: "Operating System",
         desc: "An Operating System (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs.",
         logo: eeImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGz9donHRrE9I3Mwn6XdP8p&si=2o4kXMxr5-dISD9h",
         notes: "",
       },
       {
         name: "Database Management System",
         desc: "A Database Management System (DBMS) is software that interacts with end users, applications, and the database itself to capture and analyze data.",
         logo: eeImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y&si=T4PaMDpbiN3otIQM",
         notes: "",
       },
       {
         name: "Compiler Design",
         desc: "Compiler Design principles provide an in-depth view of translation and optimization process, which include lexical analysis, syntax analysis, and code generation.",
         logo: eeImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiEKtKSIHYusizkESC42diyc&si=ssU6_NPiyWhcHsI_",
         notes: "",
       },
       {
         name: "Discrete Mathematics",
         desc: "Discrete Mathematics involves study of mathematical structures that are fundamentally discrete rather than continuous.",
         logo: eeImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiH2wwES9vPWsEL6ipTaUSl3&si=uZiL_x1QDMNFr3Vg",
         notes: "",
       },
       {
         name: "Data Structure and Algorithms",
         desc: "Data Structures and Algorithms involve the study of data organization, management, and storage formats that enable efficient access and modification.",
         logo: eeImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&si=G0jQOhu2lto0h87E",
         notes: "",
       },
       {
         name: "Digital Electronics",
         desc: "Digital Electronics is a field of electronics involving the study of digital signals and the engineering of devices that use or produce them.",
         logo: eeImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGmXg4NoX6R31AsC5LeCPHe&si=6_xBy283O21EAgsl",
         notes: "",
       },
     ],
@@ -332,42 +368,48 @@ const branchDetails = [
         name: "Operating System",
         desc: "An Operating System (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs.",
         logo: eeeImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGz9donHRrE9I3Mwn6XdP8p&si=2o4kXMxr5-dISD9h",
         notes: "",
       },
       {
         name: "Database Management System",
         desc: "A Database Management System (DBMS) is software that interacts with end users, applications, and the database itself to capture and analyze data.",
         logo: eeeImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y&si=T4PaMDpbiN3otIQM",
         notes: "",
       },
       {
         name: "Compiler Design",
         desc: "Compiler Design principles provide an in-depth view of translation and optimization process, which include lexical analysis, syntax analysis, and code generation.",
         logo: eeeImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiEKtKSIHYusizkESC42diyc&si=ssU6_NPiyWhcHsI_",
         notes: "",
       },
       {
         name: "Discrete Mathematics",
         desc: "Discrete Mathematics involves study of mathematical structures that are fundamentally discrete rather than continuous.",
         logo: eeeImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiH2wwES9vPWsEL6ipTaUSl3&si=uZiL_x1QDMNFr3Vg",
         notes: "",
       },
       {
         name: "Data Structure and Algorithms",
         desc: "Data Structures and Algorithms involve the study of data organization, management, and storage formats that enable efficient access and modification.",
         logo: eeeImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&si=G0jQOhu2lto0h87E",
         notes: "",
       },
       {
         name: "Digital Electronics",
         desc: "Digital Electronics is a field of electronics involving the study of digital signals and the engineering of devices that use or produce them.",
         logo: eeeImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGmXg4NoX6R31AsC5LeCPHe&si=6_xBy283O21EAgsl",
         notes: "",
       },
     ],
@@ -383,42 +425,48 @@ const branchDetails = [
         name: "Operating System",
         desc: "An Operating System (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs.",
         logo: meImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGz9donHRrE9I3Mwn6XdP8p&si=2o4kXMxr5-dISD9h",
         notes: "",
       },
       {
         name: "Database Management System",
         desc: "A Database Management System (DBMS) is software that interacts with end users, applications, and the database itself to capture and analyze data.",
         logo: meImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y&si=T4PaMDpbiN3otIQM",
         notes: "",
       },
       {
         name: "Compiler Design",
         desc: "Compiler Design principles provide an in-depth view of translation and optimization process, which include lexical analysis, syntax analysis, and code generation.",
         logo: meImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiEKtKSIHYusizkESC42diyc&si=ssU6_NPiyWhcHsI_",
         notes: "",
       },
       {
         name: "Discrete Mathematics",
         desc: "Discrete Mathematics involves study of mathematical structures that are fundamentally discrete rather than continuous.",
         logo: meImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiH2wwES9vPWsEL6ipTaUSl3&si=uZiL_x1QDMNFr3Vg",
         notes: "",
       },
       {
         name: "Data Structure and Algorithms",
         desc: "Data Structures and Algorithms involve the study of data organization, management, and storage formats that enable efficient access and modification.",
         logo: meImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&si=G0jQOhu2lto0h87E",
         notes: "",
       },
       {
         name: "Digital Electronics",
         desc: "Digital Electronics is a field of electronics involving the study of digital signals and the engineering of devices that use or produce them.",
         logo: meImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGmXg4NoX6R31AsC5LeCPHe&si=6_xBy283O21EAgsl",
         notes: "",
       },
     ],
@@ -434,42 +482,48 @@ const branchDetails = [
         name: "Operating System",
         desc: "An Operating System (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs.",
         logo: csbsImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGz9donHRrE9I3Mwn6XdP8p&si=2o4kXMxr5-dISD9h",
         notes: "",
       },
       {
         name: "Database Management System",
         desc: "A Database Management System (DBMS) is software that interacts with end users, applications, and the database itself to capture and analyze data.",
         logo: csbsImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y&si=T4PaMDpbiN3otIQM",
         notes: "",
       },
       {
         name: "Compiler Design",
         desc: "Compiler Design principles provide an in-depth view of translation and optimization process, which include lexical analysis, syntax analysis, and code generation.",
         logo: csbsImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiEKtKSIHYusizkESC42diyc&si=ssU6_NPiyWhcHsI_",
         notes: "",
       },
       {
         name: "Discrete Mathematics",
         desc: "Discrete Mathematics involves study of mathematical structures that are fundamentally discrete rather than continuous.",
         logo: csbsImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiH2wwES9vPWsEL6ipTaUSl3&si=uZiL_x1QDMNFr3Vg",
         notes: "",
       },
       {
         name: "Data Structure and Algorithms",
         desc: "Data Structures and Algorithms involve the study of data organization, management, and storage formats that enable efficient access and modification.",
         logo: csbsImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&si=G0jQOhu2lto0h87E",
         notes: "",
       },
       {
         name: "Digital Electronics",
         desc: "Digital Electronics is a field of electronics involving the study of digital signals and the engineering of devices that use or produce them.",
         logo: csbsImg,
-        youtube: "",
+        youtube:
+          "https://youtube.com/playlist?list=PLxCzCOWd7aiGmXg4NoX6R31AsC5LeCPHe&si=6_xBy283O21EAgsl",
         notes: "",
       },
     ],
