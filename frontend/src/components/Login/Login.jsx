@@ -26,7 +26,7 @@ const Login = () => {
         { withCredentials: true }
       );
 
-      localStorage.setItem("accessToken", res.data.data.accessToken);
+      // localStorage.setItem("accessToken", res.data.data.accessToken);
 
       toast.success(res.data.message);
       setUser(res.data);
@@ -70,7 +70,7 @@ const Login = () => {
             {/* {error && <div className="text-red-500 text-sm mt-1">{error}</div>} */}
 
             <div className="mt-8 flex justify-between items-center">
-              <Link className="font-medium text-sm text-gray-500 hover:text-teal-300 duration-300">
+              <Link to="/forgot-password" className="font-medium text-sm text-gray-500 hover:text-teal-300 duration-300">
                 Forgot password
               </Link>
             </div>

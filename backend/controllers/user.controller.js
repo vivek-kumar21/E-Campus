@@ -460,7 +460,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 
 /************************************************UPDATE ACCOUNT DETAILS***********************************************/
 const updateAccountDetails = asyncHandler(async (req, res) => {
-  const { email } = req.body;
+  const { email, college, designation } = req.body;
   // console.log(email);
 
   if (!email) {
@@ -472,9 +472,11 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
     {
       $set: {
         email: email,
+        college: college,
+        designation: designation,
       },
     },
-    { new: true } // return the updated information
+    { new: true }
   ).select("-password");
 
   return res

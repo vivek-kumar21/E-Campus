@@ -1,3 +1,5 @@
+// PostDetails.js
+
 import { useNavigate, useParams } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
@@ -14,13 +16,13 @@ import "react-toastify/dist/ReactToastify.css";
 
 const PostDetails = () => {
   const postId = useParams().id;
-  const [post, setPost] = useState({});
-  const { user } = useContext(UserContext);
+  const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
+
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  // console.log(post);
 
   const handleDeletePost = async () => {
     try {
@@ -28,7 +30,6 @@ const PostDetails = () => {
         withCredentials: true,
       });
 
-      // console.log(res.data.statusCode);
       if (res.data.statusCode === 200) {
         toast.success("Post deleted successfully");
         navigate("/blogs");
@@ -42,13 +43,20 @@ const PostDetails = () => {
 
   useEffect(() => {
     const fetchPost = async () => {
+      setLoader(true);
       try {
         const res = await axios.get(URL + "/api/v1/blogs/posts/" + postId);
-        // console.log(res.data.data);
 
-        setPost(res.data.data);
+        if (res.data.data) {
+          setPost(res.data.data);
+        } else {
+          toast.error("Post not found");
+        }
       } catch (err) {
+        toast.error("Error fetching post data");
         console.log(err);
+      } finally {
+        setLoader(false);
       }
     };
 
@@ -59,18 +67,19 @@ const PostDetails = () => {
     setLoader(true);
     try {
       const res = await axios.get(URL + "/api/v1/blogs/comments/" + postId);
-
-      // console.log(res);
       setComments(res.data.data);
-      setLoader(false);
     } catch (err) {
-      setLoader(false);
+      toast.error("Error fetching comments");
       console.log(err);
+    } finally {
+      setLoader(false);
     }
   };
 
   useEffect(() => {
-    fetchPostComments();
+    if (postId) {
+      fetchPostComments();
+    }
   }, [postId]);
 
   const postComment = async (e) => {
@@ -87,13 +96,18 @@ const PostDetails = () => {
         { withCredentials: true }
       );
 
-      // console.log("Entered");
       fetchPostComments();
       setComment("");
-      // window.location.reload(true);
     } catch (err) {
+      toast.error("Error posting comment");
       console.log(err);
     }
+  };
+
+  const handleCommentDelete = (commentId) => {
+    setComments((prevComments) =>
+      prevComments.filter((c) => c._id !== commentId)
+    );
   };
 
   return (
@@ -103,76 +117,129 @@ const PostDetails = () => {
         <div className="h-[80vh] flex justify-center items-center w-full">
           <Loader />
         </div>
-      ) : (
+      ) : post ? (
         <div className="px-8 md:px-[200px] mt-20">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold text-black md:text-3xl">
               {post.title}
             </h1>
             {user.data?._id === post?.userId && (
-              <div className="flex items-center justify-center space-x-2">
+              <div className="flex items-center space-x-2">
                 <p
-                  className="cursor-pointer"
+                  className="cursor-pointer text-blue-500 hover:text-blue-700"
                   onClick={() => navigate("/blogs/edit/" + postId)}
                 >
                   <BiEdit />
                 </p>
-                <p className="cursor-pointer" onClick={handleDeletePost}>
+                <p
+                  className="cursor-pointer text-red-500 hover:text-red-700"
+                  onClick={handleDeletePost}
+                >
                   <MdDelete />
                 </p>
               </div>
             )}
           </div>
           <div className="flex items-center justify-between mt-2 md:mt-4">
-            <div className="flex items-center justify-center gap-1">
+            <div className="flex items-center space-x-2">
               <img
                 className="w-8 h-8 rounded-full"
                 src={post.profileImage}
                 alt="profile_photo"
               />
-              <p>@{post.username}</p>
+              <p className="font-semibold text-gray-700">@{post.username}</p>
             </div>
-            <div className="flex space-x-2">
-              <p>{new Date(post.updatedAt).toString().slice(0, 15)}</p>
-              <p>{new Date(post.updatedAt).toString().slice(16, 21)}</p>
+            <div className="flex space-x-2 text-gray-500">
+              <p>{new Date(post.updatedAt).toLocaleDateString()}</p>
+              <p>{new Date(post.updatedAt).toLocaleTimeString()}</p>
             </div>
           </div>
-          <img src={post.photo} className="w-full  mx-auto mt-8" alt="" />
+          <img
+            src={post.photo}
+            className="w-full mx-auto mt-8 rounded-lg shadow-md"
+            alt="Post"
+          />
           <div
-            className="mx-auto mt-8"
+            className="mx-auto mt-8 text-gray-700"
             dangerouslySetInnerHTML={{ __html: post.description }}
           />
-          <div className="flex items-center mt-8 space-x-4 font-semibold">
+          <div className="flex items-center mt-8 space-x-4 font-semibold text-gray-700">
             <p>Categories:</p>
-            <div className="flex justify-center items-center space-x-2">
+            <div className="flex space-x-2">
               {post.categories?.map((c, i) => (
-                <div key={i} className="bg-gray-300 rounded-lg px-3 py-1">
+                <div
+                  key={i}
+                  className="bg-gray-300 rounded-lg px-3 py-1 text-sm"
+                >
                   {c}
                 </div>
               ))}
             </div>
           </div>
-          <div className="flex flex-col mt-4">
-            <h3 className="mt-6 mb-4 font-semibold">Comments:</h3>
-            {comments?.map((c) => (
-              <Comment key={c._id} c={c} post={post} />
-            ))}
+
+          {/* Editor Details */}
+          <div className="flex flex-col items-center mt-8 p-6 bg-gray-100 rounded-lg shadow-md">
+            <h3 className="mb-4 text-2xl font-bold text-gray-800">
+              Editor Details:
+            </h3>
+            <div className="flex flex-col items-center gap-4">
+              <img
+                className="w-24 h-24 rounded-full border-2 border-gray-300"
+                src={post.profileImage}
+                alt="Editor Profile"
+              />
+              <div className="text-center">
+                <p className="text-lg font-semibold text-gray-800">
+                  {post.username}
+                </p>
+                <p className="text-sm text-gray-600">{post.email}</p>
+                <p className="text-sm text-gray-600">
+                  {post.editorDesignation}
+                </p>
+                <p className="text-sm text-gray-600">{post.editorCollege}</p>
+              </div>
+            </div>
           </div>
-          {/* write a comment */}
-          <div className="w-full flex md:mt-2 mt-0 flex-col md:flex-row">
-            <input
-              onChange={(e) => setComment(e.target.value)}
-              type="text"
-              placeholder="Write a comment"
-              className="md:w-[80%] w-full border rounded-md py-2 px-4 mt-4 mr-4 md:mt-0"
-            />
-            <button
-              onClick={postComment}
-              className="bg-black text-sm text-white px-2 py-2 md:w-[20%] mt-4 md:mt-0 rounded-md"
-            >
-              Add Comment
-            </button>
+
+          {/* Comments Section */}
+          <div className="mt-20">
+            <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+              Comments
+            </h3>
+            {comments?.length ? (
+              <div className="space-y-4">
+                {comments.map((c) => (
+                  <Comment
+                    key={c._id}
+                    c={c}
+                    onCommentDelete={handleCommentDelete} // Pass callback
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-600">No comments yet.</p>
+            )}
+            {/* Write a comment */}
+            <div className="flex flex-col mt-6 md:flex-row md:gap-x-4">
+              <input
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                type="text"
+                placeholder="Write a comment"
+                className="md:w-[80%] w-full border rounded-md py-2 px-4 mb-4 md:mb-0"
+              />
+              <button
+                onClick={postComment}
+                className="bg-black text-sm text-white px-4 py-2 rounded-md md:w-[20%]"
+              >
+                Add Comment
+              </button>
+            </div>
           </div>
+        </div>
+      ) : (
+        <div className="h-[80vh] flex justify-center items-center w-full">
+          <p className="text-xl">Post not found</p>
         </div>
       )}
       <Footer />

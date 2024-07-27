@@ -89,6 +89,9 @@ const EditPost = () => {
     categories.forEach((category) => {
       formData.append("categories[]", category);
     });
+    
+    // Logging for debugging
+    console.log("FormData:", formData);
 
     try {
       setIsLoading(true);
@@ -102,8 +105,6 @@ const EditPost = () => {
           },
         }
       );
-
-      console.log(res.data);
 
       navigate(`/blogs/posts/post/${res.data.data._id}`);
       setIsLoading(false);

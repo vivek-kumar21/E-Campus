@@ -17,11 +17,11 @@ const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
-  const { user } = useContext(UserContext);
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
-  // console.log(user.data.username);
+
+  const { user } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -65,6 +65,8 @@ const CreatePost = () => {
     formData.append("description", sanitizedDesc);
     formData.append("username", user.data.username);
     formData.append("profileImage", user.data.avatar);
+    formData.append("editorCollege", user.data.college);
+    formData.append("editorDesignation", user.data.designation);
     formData.append("photo", file);
     formData.append("userId", user.data._id);
 
@@ -91,6 +93,7 @@ const CreatePost = () => {
       setLoading(false);
     } catch (err) {
       setLoading(false);
+      toast.error("An error occurred while creating the post.");
       console.log(err);
     }
   };

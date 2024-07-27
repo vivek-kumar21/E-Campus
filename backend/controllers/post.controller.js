@@ -6,7 +6,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const createPost = asyncHandler(async (req, res) => {
   try {
-    const { title, description, username, profileImage, userId, categories } =
+    const { title, description, username, profileImage, editorCollege, editorDesignation, userId, categories } =
       req.body;
 
     let photo;
@@ -26,6 +26,8 @@ const createPost = asyncHandler(async (req, res) => {
       description,
       username,
       profileImage,
+      editorCollege,
+      editorDesignation,
       userId,
       categories,
       photo,
@@ -80,7 +82,6 @@ const updatePost = asyncHandler(async (req, res) => {
 const deletePost = asyncHandler(async (req, res) => {
   try {
     await Post.findByIdAndDelete(req.params.id);
-    //   await Comment.deleteMany({ postId: req.params.id });
 
     return res
       .status(201)

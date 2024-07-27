@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate, Navigate, Outlet } from "react-router-dom";
 import { UserContext, UserContextProvider } from "./context/userContext";
 import { useContext, useEffect } from "react";
 
@@ -22,7 +22,6 @@ import Branch from "./pages/Branch/Branch";
 import BranchDetails from "./components/Branch/BranchDetails";
 import CodingArena from "./pages/CodingArena/CodingArena";
 import ForgotPassword from "./components/Login/ForgotPassword";
-import Auth from "./Auth";
 
 function App() {
   return (
@@ -32,8 +31,31 @@ function App() {
   );
 }
 
+function ProtectedRoute({ children }) {
+  const { user } = useContext(UserContext);
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  return children ? children : <Outlet />;
+}
+
+function PublicRoute({ children }) {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate(-1);
+    }
+  }, [user, navigate]);
+
+  return children ? children : <Outlet />;
+}
+
 function AppContent() {
-  const { user, getUser } = useContext(UserContext);
+  const { getUser } = useContext(UserContext);
 
   useEffect(() => {
     getUser();
@@ -43,32 +65,51 @@ function AppContent() {
     <Routes>
       <Route exact path="/" element={<Home />} />
 
-      {/* Navbar routes */}
-      {!user && (
-        <>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-        </>
-      )}
-      <Route path="/chatbot" element={<ChatBot />} />
+      {/* Public routes */}
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <PublicRoute>
+            <Signup />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/forgot-password"
+        element={
+          <PublicRoute>
+            <ForgotPassword />
+          </PublicRoute>
+        }
+      />
+
+      {/* Authenticated routes */}
       <Route
         path="/profile"
         element={
-          <Auth>
+          <ProtectedRoute>
             <Profile />
-          </Auth>
+          </ProtectedRoute>
         }
       />
       <Route
         path="/settings/*"
         element={
-          <Auth>
+          <ProtectedRoute>
             <Settings />
-          </Auth>
+          </ProtectedRoute>
         }
       />
 
+      <Route path="/chatbot" element={<ChatBot />} />
       <Route path="/roadmaps" element={<Roadmaps />} />
       <Route path="/sheets" element={<Sheets />} />
 
@@ -85,8 +126,8 @@ function AppContent() {
 
       {/* Blog routes */}
       <Route path="/blogs" element={<BlogHome />} />
-      <Route path="/blogs/create" element={<CreatePost />} />
       <Route path="/blogs/posts/post/:id" element={<PostDetails />} />
+      <Route path="/blogs/create" element={<CreatePost />} />
       <Route path="/blogs/edit/:id" element={<EditPost />} />
       <Route path="/blogs/myblogs/:id" element={<MyBlogs />} />
       <Route path="/blogs/profile/:id" element={<BlogProfile />} />

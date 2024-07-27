@@ -7,18 +7,28 @@ const Profile = () => {
   const { user } = useContext(UserContext);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <div className="flex flex-col items-center justify-center gap-10 mt-24 mb-10">
+      <div className="flex flex-col items-center justify-center gap-8 mt-24 mb-10 p-4 bg-white shadow-lg rounded-lg">
         <img
-          className="w-[200px] h-[200px] rounded-full"
+          className="w-[150px] h-[150px] rounded-full border-4 border-gray-300"
           src={user.data.avatar}
           alt="profile_picture"
         />
-        <p className="text-3xl text-gray-900 font-bold -mt-6">
-          {user.data.username}
-        </p>
-        <p className="text-xl text-gray-800 -mt-10">{user.data.email}</p>
+        <div className="text-center">
+          <p className="text-4xl text-gray-900 font-semibold mb-2">
+            {user.data.username}
+          </p>
+          <p className="text-lg text-gray-600 mb-4">{user.data.email}</p>
+          <div className="bg-gray-50 p-4 rounded-lg shadow-inner">
+            <p className="text-lg text-gray-700 mb-2">
+              <strong>College:</strong> {user.data.college}
+            </p>
+            <p className="text-lg text-gray-700">
+              <strong>Designation:</strong> {user.data.designation}
+            </p>
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

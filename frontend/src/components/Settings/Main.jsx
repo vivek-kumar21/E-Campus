@@ -14,11 +14,11 @@ const Main = () => {
   const location = useLocation();
 
   return (
-    <div className="flex flex-col md:flex-row mt-16">
+    <div className="flex flex-col md:flex-row min-h-screen mt-16">
       {/* Sidebar */}
-      <div className="w-full md:w-72 h-auto md:h-screen bg-gray-200">
-        <div className="flex flex-col gap-x-4 p-4">
-          <ul className="pt-4">
+      <div className="w-full md:w-72 bg-gray-200 flex-shrink-0">
+        <div className="flex flex-col gap-x-4 p-4 h-full">
+          <ul className="pt-4 flex-1">
             {Menus.map((menu, i) => (
               <li key={i}>
                 <Link
@@ -37,7 +37,7 @@ const Main = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-4 h-auto md:h-screen">
+      <div className="flex-1 p-4">
         <h1 className="text-3xl">Settings</h1>
 
         <Routes>

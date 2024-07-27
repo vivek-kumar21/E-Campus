@@ -29,10 +29,14 @@ const HomePosts = ({ post }) => {
             alt="profile_photo"
           />
           <p className="ml-2">@{post.username}</p>
-          {/* Show date and time only on desktop */}
           <div className="hidden md:flex ml-auto space-x-1">
             <p>{new Date(post.updatedAt).toDateString()}</p>
-            <p>{new Date(post.updatedAt).toLocaleTimeString()}</p>
+            <p>
+              {new Date(post.updatedAt).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </p>
           </div>
         </div>
         {/* Description */}

@@ -5,11 +5,11 @@ import Login from "./components/Login/Login";
 function Auth({ children }) {
   const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    if (user) {
-      return;
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     return;
+  //   }
+  // }, [user]);
 
   if (!user) {
     return <Login />;

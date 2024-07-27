@@ -19,6 +19,14 @@ const userSchema = new Schema(
       unique: true,
       trim: true,
     },
+    college: {
+      type: String,
+      default: "NA",
+    },
+    designation: {
+      type: String,
+      default: "NA",
+    },
     avatar: {
       type: String, // cloudinary url
       required: true,

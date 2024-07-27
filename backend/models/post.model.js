@@ -26,6 +26,12 @@ const postSchema = new mongoose.Schema(
     profileImage: {
       type: String,
     },
+    editorCollege: {
+      type: String,
+    },
+    editorDesignation: {
+      type: String,
+    },
     categories: {
       type: Array,
     },

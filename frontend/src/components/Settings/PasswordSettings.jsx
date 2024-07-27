@@ -29,7 +29,7 @@ const PasswordSettings = () => {
         newPassword,
       });
 
-      console.log(res);
+      // console.log(res);
       navigate("/settings/password/otp");
       setLoading(false);
     } catch (error) {
