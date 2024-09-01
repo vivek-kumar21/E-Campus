@@ -43,7 +43,7 @@ const CreatePost = () => {
 
   const deleteCategory = (i) => {
     let updatedCats = [...categories];
-    updatedCats.splice(i);
+    updatedCats.splice(i, 1);
     setCategories(updatedCats);
   };
 

@@ -6,8 +6,16 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const createPost = asyncHandler(async (req, res) => {
   try {
-    const { title, description, username, profileImage, editorCollege, editorDesignation, userId, categories } =
-      req.body;
+    const {
+      title,
+      description,
+      username,
+      profileImage,
+      editorCollege,
+      editorDesignation,
+      userId,
+      categories,
+    } = req.body;
 
     let photo;
     if (req.file) {
@@ -16,7 +24,7 @@ const createPost = asyncHandler(async (req, res) => {
         photo = result.secure_url;
       }
     }
-    
+
     if (!photo) {
       throw new ApiError(400, "Photo is required");
     }
@@ -105,18 +113,28 @@ const getPostDetails = asyncHandler(async (req, res) => {
 
 const getAllPosts = asyncHandler(async (req, res) => {
   try {
-    const query = req.query.search
-      ? { $text: { $search: req.query.search } }
-      : {};
-    let page = Number(req.query.page) || 1;
-    let limit = Number(req.query.limit) || 5;
-    let skip = (page - 1) * limit;
+    const { search = "", page = 1, limit = 5 } = req.query;
+    const query = search ? { $text: { $search: search } } : {};
 
-    const posts = await Post.find(query).skip(skip).limit(limit);
+    const posts = await Post.find(query)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(Number(limit));
 
-    return res
-      .status(200)
-      .json(new ApiResponse(200, posts, "Posts fetched successfully"));
+    const totalPosts = await Post.countDocuments(query);
+
+    return res.status(200).json(
+      new ApiResponse(
+        200,
+        {
+          posts,
+          totalPosts,
+          totalPages: Math.ceil(totalPosts / limit),
+          currentPage: Number(page),
+        },
+        "Posts fetched successfully"
+      )
+    );
   } catch (error) {
     throw new ApiError(500, error);
   }

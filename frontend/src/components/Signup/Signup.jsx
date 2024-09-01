@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { URL } from "../../url";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { UserContext } from "../../context/userContext";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -14,6 +15,7 @@ const Signup = () => {
   // const [error, setError] = useState("");
   // console.log(avatar);
 
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSignup = async () => {
@@ -48,7 +50,6 @@ const Signup = () => {
       return;
     }
 
-    // Create FormData object
     const formData = new FormData();
     formData.append("username", username);
     formData.append("email", email);
@@ -64,11 +65,20 @@ const Signup = () => {
       setEmail(res.data.email);
       setPassword(res.data.password);
       setAvatar(res.data.avatar);
-
+      
+      await axios.post(
+        `${URL}/api/v1/users/login`,
+        {
+          email: formData.get("email"),
+          password: formData.get("password"),
+        },
+        { withCredentials: true }
+      );
+      
       setIsLoading(false);
+      setUser(res.data);
       toast.success("Sign up successfully");
-
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       setIsLoading(false);
       if (error.response) {

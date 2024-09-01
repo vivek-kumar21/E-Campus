@@ -10,9 +10,9 @@ const otpSchema = new Schema({
     type: String,
     required: true,
   },
-  link: {
-    type: String,
-  },
+  // link: {
+  //   type: String,
+  // },
   oldPassword: {
     type: String,
     // required: true,

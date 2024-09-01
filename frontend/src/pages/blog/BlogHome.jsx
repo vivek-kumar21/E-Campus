@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState, useRef, useCallback } from "react";
 import { URL } from "../../url.js";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import HomePosts from "../../components/blog/HomePosts.jsx";
@@ -15,7 +15,7 @@ const BlogHome = () => {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const { search } = useLocation();
+  const [page, setPage] = useState(1);
   const { user } = useContext(UserContext);
   const observer = useRef();
 
@@ -24,14 +24,12 @@ const BlogHome = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `${URL}/api/v1/blogs/posts?page=1&limit=5${search}`
+          `${URL}/api/v1/blogs/posts?page=${page}&limit=5&search=${searchTerm}`
         );
-        const sortedPosts = res.data.data.sort(
-          (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
-        );
-        setPosts(sortedPosts);
-        setHasMore(res.data.data.length > 0);
-        setNoResults(res.data.data.length === 0);
+
+        setPosts((prevPosts) => [...prevPosts, ...res.data.data.posts]);
+        setHasMore(page < res.data.data.totalPages);
+        setNoResults(res.data.data.posts.length === 0);
       } catch (error) {
         console.log(error);
         setNoResults(true);
@@ -41,7 +39,7 @@ const BlogHome = () => {
     };
 
     fetchPosts();
-  }, [search]);
+  }, [page, searchTerm]);
 
   const lastPostRef = useCallback(
     (node) => {
@@ -49,37 +47,19 @@ const BlogHome = () => {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          setLoading(true);
-          const nextPage = Math.ceil(posts.length / 5) + 1;
-
-          axios
-            .get(`${URL}/api/v1/blogs/posts?page=${nextPage}&limit=5${search}`)
-            .then((res) => {
-              const sortedPosts = res.data.data.sort(
-                (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
-              );
-              setPosts((prevPosts) => [...prevPosts, ...sortedPosts]);
-              setHasMore(res.data.data.length > 0);
-              setLoading(false);
-            })
-            .catch((error) => {
-              console.log(error);
-              setLoading(false);
-            });
+          setPage((prevPage) => prevPage + 1);
         }
       });
       if (node) observer.current.observe(node);
     },
-    [loading, hasMore, search, posts.length]
+    [loading, hasMore]
   );
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
+    setPage(1);
+    setPosts([]);
   };
-
-  const filteredPosts = posts.filter((post) =>
-    post.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <>
@@ -101,8 +81,8 @@ const BlogHome = () => {
           </div>
         </div>
 
-        {filteredPosts.map((post, index) => {
-          if (filteredPosts.length === index + 1) {
+        {posts.map((post, index) => {
+          if (posts.length === index + 1) {
             return (
               <Link
                 key={post._id}
